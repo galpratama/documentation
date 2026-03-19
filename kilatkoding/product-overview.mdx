@@ -1,0 +1,68 @@
+---
+title: "Ringkasan produk"
+description: "Pahami apa yang Anda dapatkan dari KilatKoding, siapa yang cocok memakainya, dan area yang masih berupa roadmap."
+mode: "wide"
+---
+
+## KilatKoding dalam satu kalimat
+
+KilatKoding memberi Anda fondasi SaaS Next.js yang sudah siap untuk pasar Indonesia, sehingga Anda bisa fokus ke logika bisnis dan branding produk Anda.
+
+## Masalah yang diselesaikan
+
+Tanpa boilerplate, Anda biasanya harus menyiapkan auth, dashboard, billing, payment gateway lokal, email, blog, admin, dan testing dari nol. KilatKoding sudah menyatukan area-area itu dalam satu repo.
+
+## Yang Anda dapatkan
+
+| Area | Sudah tersedia | Nilai untuk pengguna |
+| --- | --- | --- |
+| Marketing website | Landing page, about, use cases, compare, changelog, roadmap, status, contact, waitlist, open startup | Anda bisa langsung memasarkan produk tanpa membangun situs dari nol |
+| Auth | Login, signup, Google OAuth, Magic Link, email verification, forgot password, update password | Pengguna bisa membuat akun dan masuk dengan beberapa cara |
+| Dashboard | Ringkasan akun, subscription card, riwayat pembayaran, settings, avatar | User punya area kerja yang sudah siap pakai |
+| Billing | Plan catalog, checkout, cancel/resume subscription, order page, provider callback fallback | Anda tidak perlu merancang alur billing dari nol |
+| Payments | Midtrans Snap dan Doku JOKUL, plus webhook verification | Cocok untuk pasar Indonesia |
+| Admin | Revenue chart, user management, role management, webhook visibility, audit trail | Anda punya panel operasional internal |
+| Email | Template welcome dan invoice dengan React Email + Resend | Anda bisa mengirim email transaksional sejak awal |
+| Content | Blog MDX dan halaman legal | Anda bisa menulis konten marketing dan edukasi |
+| AI | `/api/ai/chat`, `/api/ai/generate`, usage tracking, token limits by plan | Anda bisa menambah fitur AI tanpa fondasi tambahan |
+| UI | Tailwind, shadcn/ui, theme switcher, marketing design presets, public component docs | Pengembangan UI lebih cepat dan konsisten |
+| Quality | ESLint, typecheck, unit test, DOM test, E2E smoke test, CI | Risiko regresi lebih rendah |
+
+## Siapa yang cocok memakai KilatKoding
+
+- Founder yang ingin memvalidasi ide SaaS lebih cepat.
+- Developer yang ingin menjual template internal atau starter kit.
+- Agency yang perlu fondasi reusable untuk banyak klien.
+- Tim kecil yang ingin fokus ke fitur inti, bukan plumbing.
+
+## Apa yang masih belum ada
+
+Beberapa item masih tercatat sebagai roadmap di kode saat ini:
+
+| Area | Status per 19 Maret 2026 |
+| --- | --- |
+| Team atau multi-tenant | Belum tersedia sebagai fitur jadi |
+| API keys management | Masih roadmap |
+| Notification center | Masih roadmap |
+| Referral program | Masih roadmap |
+| WhatsApp OTP | Masih roadmap |
+| Companion mobile starter | Masih roadmap |
+| Provider email tambahan selain Resend | Masih roadmap |
+
+## Keputusan utama yang perlu Anda buat di awal
+
+1. Apakah Anda akan memakai semua fitur, atau mematikan beberapa fitur lewat toggle env.
+2. Payment provider utama Anda: `midtrans` atau `doku`.
+3. Apakah produk Anda butuh AI sejak awal.
+4. Siapa email admin bootstrap pertama untuk panel admin.
+
+## Cocok juga untuk pembaca non-teknis
+
+Kalau Anda bukan developer, fokuslah pada empat pertanyaan ini:
+
+- Halaman apa saja yang sudah siap dipakai user?
+- Layanan pihak ketiga apa saja yang harus didaftarkan?
+- Fitur apa saja yang bisa dimatikan?
+- Area mana yang harus diganti agar sesuai brand Anda?
+
+Semua pertanyaan itu dijawab di dokumentasi ini.

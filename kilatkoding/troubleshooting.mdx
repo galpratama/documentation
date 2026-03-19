@@ -1,0 +1,100 @@
+---
+title: "Troubleshooting"
+description: "Selesaikan masalah umum KilatKoding dengan checklist diagnosis yang langsung mengarah ke sumber masalah."
+---
+
+## Mulai dari dua command ini
+
+Sebelum men-debug lebih jauh, jalankan:
+
+```bash
+npm run env:check
+```
+
+dan cek:
+
+```text
+GET /api/health
+```
+
+Dua pemeriksaan ini biasanya sudah cukup untuk menunjukkan apakah masalah Anda berasal dari env, feature toggle, atau konektivitas database.
+
+## Masalah umum
+
+<AccordionGroup>
+  <Accordion title="Halaman auth atau dashboard tidak bekerja">
+    Periksa `NEXT_PUBLIC_SUPABASE_URL` dan `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
+
+    Jika auth memang belum mau dipakai, set:
+
+    ```env
+    NEXT_PUBLIC_ENABLE_AUTH=false
+    ```
+  </Accordion>
+  <Accordion title="Billing atau admin selalu menampilkan fallback">
+    Biasanya `SUPABASE_SERVICE_ROLE_KEY` belum ada. Fitur billing, webhook, avatar signed URL, audit log, admin reporting, dan rate limit persisten membutuhkannya.
+  </Accordion>
+  <Accordion title="Checkout gagal membuat payment">
+    Periksa:
+
+    - `NEXT_PUBLIC_ENABLE_PAYMENTS`
+    - `PAYMENT_PROVIDER`
+    - credential Midtrans atau Doku
+    - migrasi `payments` dan `subscriptions`
+  </Accordion>
+  <Accordion title="Pembayaran sukses di gateway tetapi subscription tidak aktif">
+    Biasanya webhook belum sampai, URL webhook salah, atau signature verification gagal. Periksa route webhook yang sesuai dan pastikan domain production sudah benar.
+  </Accordion>
+  <Accordion title="Form kontak tidak mengirim email">
+    Periksa `RESEND_API_KEY`, `EMAIL_FROM`, dan opsional `CONTACT_EMAIL`. Pastikan domain sender sudah diverifikasi di Resend.
+  </Accordion>
+  <Accordion title="AI route mengembalikan 503 atau 429">
+    `503` biasanya berarti provider belum dikonfigurasi. `429` biasanya berarti usage limit atau rate limit tercapai.
+  </Accordion>
+  <Accordion title="Akses admin tidak muncul">
+    Pastikan user Anda ada di `user_roles` sebagai `admin`. `ADMIN_EMAILS` hanya membantu bootstrap awal.
+  </Accordion>
+  <Accordion title="Playwright gagal saat pertama kali dijalankan">
+    Install browser dulu:
+
+    ```bash
+    npx playwright install chromium
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Checklist diagnosis cepat
+
+| Gejala | Hal pertama yang dicek |
+| --- | --- |
+| Banyak fitur disabled atau fallback | `.env.local` dan `npm run env:check` |
+| Login redirect aneh | Redirect URL Supabase dan auth callback |
+| Admin kosong | Service role dan role admin |
+| Payment tidak final | Webhook URL dan signature |
+| Avatar gagal | Storage migration dan service role |
+| Contact form gagal | Resend key dan sender domain |
+
+## Kapan harus cek database langsung
+
+Cek database langsung jika masalahnya menyangkut:
+
+- user role,
+- status subscription,
+- payment record,
+- audit trail,
+- webhook event log.
+
+Biasanya tabel yang perlu Anda lihat adalah `user_roles`, `subscriptions`, `payments`, `audit_logs`, dan `webhook_events`.
+
+## Kapan harus cek kode
+
+Masuk ke kode jika:
+
+- env sudah benar tetapi perilaku masih salah,
+- Anda baru mengubah file `config/*`,
+- Anda mengubah route handler atau komponen dashboard,
+- Anda menambah integrasi baru di atas pola yang sudah ada.
+
+<Note>
+Kalau Anda sedang rebrand besar-besaran, masalah yang tampak seperti bug kadang hanya efek dari copy, navigasi, atau env toggle yang belum diselaraskan.
+</Note>

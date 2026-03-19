@@ -1,97 +1,36 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "BelajarKoding Docs"
+description: "Portal dokumentasi produk BelajarKoding. Saat ini tersedia dokumentasi lengkap untuk KilatKoding."
 ---
 
-## Setting up
+<Info>
+Dokumentasi ini sekarang berfungsi sebagai portal multi-produk. Saat ini produk yang sudah didokumentasikan adalah KilatKoding.
+</Info>
 
-Get your documentation site up and running in minutes.
-
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
-
-## Make it yours
-
-Design a docs site that looks great and empowers your users.
+## Produk yang tersedia
 
 <Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
+  <Card title="KilatKoding" href="/kilatkoding" horizontal>
+    Pelajari fitur, setup, konfigurasi, arsitektur, dan operasional boilerplate KilatKoding secara lengkap.
   </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
-  </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
+  <Card title="Siap untuk produk berikutnya" horizontal>
+    Struktur navigasi sudah dipisahkan per produk, jadi dokumentasi baru bisa ditambahkan tanpa mengganggu dokumentasi KilatKoding.
   </Card>
 </Columns>
 
-## Create beautiful pages
+## Cara memakai portal ini
 
-Everything you need to create world-class documentation.
+1. Mulai dari halaman [KilatKoding](/kilatkoding) untuk memahami isi boilerplate.
+2. Lanjutkan ke [Mulai dengan benar](/kilatkoding/getting-started) dan [Setup lokal](/kilatkoding/local-setup) kalau Anda ingin menjalankan project.
+3. Buka [Kustomisasi](/kilatkoding/customization) kalau Anda ingin mengganti branding, pricing, halaman, atau konten.
+4. Gunakan halaman teknis seperti [Arsitektur](/kilatkoding/architecture) dan [Database dan storage](/kilatkoding/database-and-storage) saat Anda mulai mengubah kode.
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
+## Tentang KilatKoding
 
-## Need inspiration?
+KilatKoding adalah boilerplate SaaS berbasis Next.js untuk developer Indonesia. Repo ini sudah membawa auth Supabase, pembayaran Midtrans dan Doku, email lewat Resend, blog MDX, dashboard, admin panel, AI routes, dan fondasi testing.
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+Dokumentasi publik ini merefleksikan kondisi kode di repo `kilatkoding-src` per 19 Maret 2026. Jika repo berubah, Anda bisa memperbarui halaman KilatKoding tanpa mengubah struktur portal.
+
+<Tip>
+Kalau Anda juga ingin mengubah struktur dokumentasi ini nanti, mulai dari `docs.json`. Mintlify mengatur produk, navigasi, logo, dan navbar dari file itu.
+</Tip>

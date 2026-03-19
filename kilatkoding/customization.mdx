@@ -1,0 +1,112 @@
+---
+title: "Kustomisasi"
+description: "Ubah branding, pricing, navigasi, halaman, konten, preset desain, email, dan konfigurasi produk KilatKoding."
+mode: "wide"
+---
+
+## Mulai dari file yang paling berpengaruh
+
+| Yang ingin Anda ubah | File utama | Dampak |
+| --- | --- | --- |
+| Nama produk, deskripsi, base URL | `config/site.ts` | Metadata, SEO helpers, copy dasar produk |
+| Navigasi dalam aplikasi | `config/navigation.ts` | Header dan dashboard navigation |
+| Paket, harga, dan benefit | `config/subscriptions.ts` | Katalog plan di server, billing UI, AI limits |
+| Preset desain marketing | `config/marketing-designs.ts` | Pilihan tema visual marketing |
+| Metrik open startup | `config/open-startup.ts` | Halaman `/open` |
+| Roadmap publik | `config/roadmap.ts` | Halaman `/roadmap` |
+| Status layanan | `config/status-page.ts` | Halaman `/status` |
+| Copy landing page | `components/sections/*` | Hero, fitur, FAQ, pricing, CTA, testimonial, dan lainnya |
+| Styling global | `app/globals.css`, `app/marketing.css`, `tailwind.config.ts` | Token warna, layout, visual system |
+| Blog | `content/blog/*.mdx` | Konten blog |
+| Email | `emails/*.tsx` | Welcome email dan invoice |
+| Legal pages | `app/(marketing)/privacy/page.tsx`, `app/(marketing)/terms/page.tsx` | Halaman legal |
+
+## Urutan kustomisasi yang direkomendasikan
+
+<Steps>
+  <Step title="Ganti identitas produk">
+    Ubah `config/site.ts`, copy landing page, logo, dan deskripsi SEO.
+  </Step>
+  <Step title="Tentukan fitur yang tetap aktif">
+    Gunakan toggle di `.env.local` untuk mematikan modul yang belum dipakai.
+  </Step>
+  <Step title="Sesuaikan pricing dan payment">
+    Ubah plan di `config/subscriptions.ts` dan pastikan provider pembayaran yang dipilih sesuai.
+  </Step>
+  <Step title="Rapikan halaman marketing">
+    Tinjau halaman `about`, `compare`, `roadmap`, `status`, `waitlist`, `contact`, dan `blog`.
+  </Step>
+  <Step title="Tinjau dashboard dan admin">
+    Pastikan data, istilah, dan CTA di dashboard cocok dengan produk Anda.
+  </Step>
+</Steps>
+
+## Area konfigurasi yang paling penting
+
+### Branding dan SEO
+
+- `config/site.ts` mengatur nama, deskripsi, dan URL dasar.
+- Banyak halaman memakai helper `createMetadata()`, jadi perubahan di config dasar akan memengaruhi metadata turunan.
+- File `app/opengraph-image.png` dan `app/twitter-image.png` dipakai untuk share preview.
+
+### Navigasi dan konten halaman
+
+- `config/navigation.ts` mengatur menu utama marketing dan dashboard.
+- Halaman-halaman marketing berada di `app/(marketing)/`.
+- Copy section landing page ada di `components/sections/`.
+
+### Pricing dan billing
+
+- `config/subscriptions.ts` adalah source of truth katalog paket.
+- Harga dan line item checkout ditentukan server-side dari file ini.
+- User tidak bisa menentukan nominal sendiri dari client.
+
+### Desain marketing
+
+- `config/marketing-designs.ts` berisi 12 preset desain marketing.
+- `components/marketing/design-switcher.tsx` menampilkan switcher preset.
+- `components/marketing/design-provider.tsx` menangani persistence dan sinkronisasi theme.
+
+### Konten yang sifatnya live marketing
+
+| Konten | File |
+| --- | --- |
+| Open startup metrics | `config/open-startup.ts` |
+| Roadmap | `config/roadmap.ts` |
+| Status page | `config/status-page.ts` |
+| FAQ | `components/sections/faq.tsx` |
+| Testimonials | `components/sections/testimonials.tsx` |
+
+### Email dan komunikasi
+
+- `emails/welcome.tsx` untuk onboarding.
+- `emails/invoice.tsx` untuk konfirmasi pembayaran.
+- `app/api/contact/route.ts` mengirim email form kontak dengan Resend.
+
+## Hal yang sering lupa dikustomisasi
+
+- `EMAIL_FROM`
+- `ADMIN_EMAILS`
+- isi halaman legal
+- postingan blog contoh
+- data open startup, roadmap, dan status page
+- benefit dan harga plan
+- teks Indonesia yang masih spesifik ke KilatKoding
+
+## Kalau Anda ingin mematikan fitur
+
+Gunakan env toggle, bukan menghapus kode secara terburu-buru. Pendekatan ini lebih aman karena:
+
+- UI memberi fallback yang jelas,
+- health check tetap bisa membaca readiness,
+- Anda bisa mengaktifkan fitur lagi tanpa restore banyak file.
+
+## Checklist kustomisasi sebelum launch
+
+1. Semua nama dan deskripsi produk sudah sesuai brand.
+2. Navigasi hanya menampilkan halaman yang memang dipakai.
+3. Paket harga dan benefit sudah benar.
+4. Email sender dan email tujuan contact form sudah benar.
+5. Copy legal, roadmap, status, dan open startup sudah ditinjau.
+6. Blog contoh dihapus atau diganti.
+7. Logo dan thumbnail sosial sudah sesuai.

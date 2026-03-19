@@ -1,0 +1,100 @@
+---
+title: "Testing dan deployment"
+description: "Jalankan lint, typecheck, test, health check, dan deployment KilatKoding dengan checklist yang jelas."
+mode: "wide"
+---
+
+## Command utama
+
+| Command | Fungsi |
+| --- | --- |
+| `npm run dev` | Menjalankan dev server |
+| `npm run build` | Build production |
+| `npm run start` | Menjalankan hasil build production |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | TypeScript tanpa emit |
+| `npm test` | Seluruh test Vitest sekali jalan |
+| `npm run test:watch` | Test dalam watch mode |
+| `npm run e2e` | Playwright smoke test |
+| `npm run e2e:headed` | Playwright dengan browser terbuka |
+| `npm run env:check` | Audit readiness environment variables |
+
+## Yang sudah diuji oleh repo ini
+
+### Unit dan route tests
+
+Vitest mencakup:
+
+- payment providers,
+- webhook handlers,
+- AI middleware,
+- rate limits,
+- MDX helpers,
+- auth-related hooks,
+- route handler penting.
+
+### DOM tests
+
+Testing Library dipakai untuk komponen dan hook tertentu seperti form auth, contact form, payment hook, dan subscription hook.
+
+### End-to-end smoke tests
+
+Playwright dipakai untuk mengecek route publik dasar.
+
+## GitHub Actions CI
+
+Workflow CI saat ini berjalan pada `push` dan `pull_request` ke branch `main`, lalu mengeksekusi:
+
+1. `npm ci`
+2. `npm run lint`
+3. `npm run typecheck`
+4. `npm test`
+5. `npm run build`
+6. `npx playwright install --with-deps chromium`
+7. `npm run e2e`
+
+Workflow build dan E2E memakai placeholder env untuk service yang tidak selalu aktif di CI.
+
+## Checklist sebelum deploy
+
+1. `npm run env:check`
+2. `npm run lint`
+3. `npm run typecheck`
+4. `npm test`
+5. `npm run build`
+6. cek `GET /api/health`
+7. verifikasi callback auth dan webhook memakai domain production
+
+## Checklist deployment production
+
+| Yang dicek | Kenapa penting |
+| --- | --- |
+| `NEXT_PUBLIC_APP_URL` benar | Dipakai untuk callback dan order URL |
+| Redirect URL Supabase benar | Auth dan reset password tidak akan jalan tanpa ini |
+| Webhook URL Midtrans atau Doku benar | Payment tidak akan menyelesaikan subscription tanpa ini |
+| `SUPABASE_SERVICE_ROLE_KEY` terpasang | Billing, admin, audit, avatar, dan rate limit persisten membutuhkannya |
+| `EMAIL_FROM` valid | Email tidak akan terkirim dengan sender yang belum diverifikasi |
+
+## Deployment target
+
+Repo ini paling natural untuk Vercel karena memakai Next.js App Router, tetapi tidak terkunci ke Vercel. Apa pun platformnya, Anda tetap perlu:
+
+- env yang benar,
+- domain yang benar,
+- redirect auth yang benar,
+- webhook yang benar.
+
+## Monitoring ringan sesudah deploy
+
+Sesudah deploy, cek minimal:
+
+- landing page,
+- login dan signup,
+- dashboard,
+- billing flow,
+- satu webhook test,
+- `GET /api/health`.
+
+<Tip>
+Kalau Anda menyalakan hanya sebagian fitur, test dan health check Anda juga harus fokus ke fitur yang memang aktif. Jangan mengejar status sempurna untuk fitur yang sengaja dimatikan.
+</Tip>

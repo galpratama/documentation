@@ -1,0 +1,62 @@
+---
+title: "KilatKoding"
+description: "Panduan utama untuk memahami, menjalankan, dan mengubah boilerplate KilatKoding."
+---
+
+<Info>
+Halaman ini adalah pintu masuk utama untuk dokumentasi KilatKoding. Isinya ditulis untuk dua tipe pembaca: orang non-teknis yang ingin paham apa yang sudah jadi, dan developer yang akan menjalankan atau memodifikasi kodenya.
+</Info>
+
+## Apa itu KilatKoding
+
+KilatKoding adalah boilerplate SaaS berbasis Next.js untuk pasar Indonesia. Anda tidak mulai dari halaman kosong. Anda mulai dari aplikasi yang sudah punya landing page, auth, dashboard, billing, admin, email, blog, AI, dan testing.
+
+Dokumentasi ini merefleksikan isi repo `kilatkoding-src` per 19 Maret 2026.
+
+## Mulai dari halaman yang tepat
+
+<Columns cols={2}>
+  <Card title="Pahami produk" href="/kilatkoding/product-overview">
+    Lihat apa saja yang sudah tersedia, siapa yang cocok memakainya, dan fitur apa yang belum ada.
+  </Card>
+  <Card title="Rencanakan setup" href="/kilatkoding/getting-started">
+    Tentukan layanan yang ingin Anda aktifkan sebelum menyentuh file konfigurasi.
+  </Card>
+  <Card title="Jalankan secara lokal" href="/kilatkoding/local-setup">
+    Ikuti langkah setup untuk Windows, macOS, atau Linux.
+  </Card>
+  <Card title="Ubah sesuai brand Anda" href="/kilatkoding/customization">
+    Ganti nama produk, navigasi, pricing, halaman, preset desain, email, dan konten.
+  </Card>
+</Columns>
+
+## Untuk siapa dokumentasi ini
+
+- Anda seorang founder atau operator non-teknis yang ingin tahu apa yang sudah siap dipakai.
+- Anda seorang developer yang perlu menjalankan project dan memutuskan fitur mana yang aktif.
+- Anda seorang freelancer atau agency yang ingin me-rebrand boilerplate ini untuk klien.
+
+## Yang sudah ada di dalam repo
+
+- Landing page marketing lengkap dengan beberapa halaman pendukung seperti `about`, `compare`, `roadmap`, `status`, `waitlist`, `contact`, `privacy`, dan `terms`.
+- Auth Supabase dengan email/password, Google OAuth, Magic Link, verifikasi email, dan reset password.
+- Dashboard user dengan profil, billing, riwayat pembayaran, dan avatar.
+- Admin dashboard dengan metrik revenue, manajemen role, webhook log, dan audit trail.
+- Integrasi Midtrans dan Doku dengan webhook verification.
+- Email transaksional via Resend dan React Email.
+- Blog MDX dengan frontmatter, tag, dan reading time.
+- AI routes untuk chat dan generate, termasuk tracking penggunaan.
+- Testing dengan Vitest, Testing Library, Playwright, dan GitHub Actions CI.
+
+## Baca berurutan kalau Anda baru mulai
+
+1. [Ringkasan produk](/kilatkoding/product-overview)
+2. [Mulai dengan benar](/kilatkoding/getting-started)
+3. [Setup lokal](/kilatkoding/local-setup)
+4. [Setup layanan](/kilatkoding/services-setup)
+5. [Environment variables](/kilatkoding/environment-variables)
+6. [Kustomisasi](/kilatkoding/customization)
+
+<Tip>
+Kalau Anda hanya ingin audit cepat, baca [Fitur dan route](/kilatkoding/features-and-routes), [Arsitektur](/kilatkoding/architecture), dan [Testing dan deployment](/kilatkoding/testing-and-deployment).
+</Tip>

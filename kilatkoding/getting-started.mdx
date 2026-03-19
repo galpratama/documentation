@@ -1,0 +1,83 @@
+---
+title: "Mulai dengan benar"
+description: "Siapkan keputusan awal, akun layanan, dan urutan kerja sebelum Anda menjalankan KilatKoding."
+---
+
+## Sebelum menjalankan project
+
+Jangan mulai dari `npm run dev` dulu. Putuskan dulu fitur apa yang benar-benar ingin Anda pakai. KilatKoding memang lengkap, tetapi tidak semua produk butuh semua modul.
+
+## Pilih jalur yang sesuai
+
+### Jika Anda non-teknis
+
+Gunakan dokumentasi ini untuk:
+
+- memahami halaman dan fitur yang sudah tersedia,
+- menyiapkan akun layanan yang dibutuhkan,
+- memberi arahan yang jelas ke developer atau AI coding assistant.
+
+### Jika Anda developer
+
+Gunakan dokumentasi ini untuk:
+
+- memilih fitur yang aktif,
+- mengisi `.env.local`,
+- menjalankan migrasi Supabase,
+- menyesuaikan branding dan pricing,
+- memverifikasi build, test, dan deployment.
+
+## Checklist keputusan awal
+
+| Keputusan | Pilihan | Dampak |
+| --- | --- | --- |
+| Auth | Aktif atau nonaktif | Mengontrol login, signup, dashboard, settings, admin |
+| Payments | Midtrans, Doku, atau nonaktif | Mengontrol billing, checkout, dan webhook |
+| Contact form | Aktif atau nonaktif | Menentukan apakah Anda butuh Resend untuk form kontak |
+| Waitlist | Aktif atau nonaktif | Menentukan apakah halaman waitlist akan dipakai |
+| AI | Aktif atau nonaktif | Menentukan apakah Anda perlu API key OpenAI atau Anthropic |
+| Admin | Aktif atau nonaktif | Menentukan apakah panel admin dan role management akan dipakai |
+
+## Akun layanan yang mungkin Anda butuhkan
+
+| Layanan | Wajib? | Dipakai untuk |
+| --- | --- | --- |
+| Supabase | Ya, jika auth atau data app aktif | Auth, database, profile, subscriptions, payments, waitlist, audit, rate limits |
+| Resend | Opsional | Contact form, welcome email, invoice |
+| Midtrans | Opsional | Checkout dengan Snap |
+| Doku | Opsional | Checkout dengan JOKUL |
+| OpenAI atau Anthropic | Opsional | Fitur AI |
+
+## Urutan kerja yang paling aman
+
+<Steps>
+  <Step title="Tentukan fitur yang aktif">
+    Putuskan modul apa saja yang dipakai. Nanti Anda akan mengatur ini lewat `NEXT_PUBLIC_ENABLE_*` di `.env.local`.
+  </Step>
+  <Step title="Siapkan akun layanan">
+    Buat project Supabase. Tambahkan Resend, Midtrans, Doku, atau AI provider hanya jika memang dipakai.
+  </Step>
+  <Step title="Jalankan setup lokal">
+    Ikuti [Setup lokal](/kilatkoding/local-setup) sesuai sistem operasi Anda.
+  </Step>
+  <Step title="Isi environment variables">
+    Gunakan [Environment variables](/kilatkoding/environment-variables) sebagai referensi utama saat mengisi `.env.local`.
+  </Step>
+  <Step title="Verifikasi readiness">
+    Jalankan `npm run env:check`, lalu cek `GET /api/health` setelah app hidup.
+  </Step>
+</Steps>
+
+## Hasil yang sebaiknya Anda targetkan
+
+Sebelum Anda mulai kustomisasi besar, pastikan dulu hal-hal ini berjalan:
+
+- landing page bisa dibuka,
+- auth flow berjalan atau sengaja dimatikan,
+- dashboard bisa dibuka untuk user login,
+- payment flow aktif kalau Anda memang menyalakannya,
+- `npm run lint`, `npm run typecheck`, dan `npm test` tidak gagal.
+
+<Tip>
+Kalau Anda ingin mengaktifkan hanya sebagian fitur, itu normal. KilatKoding memang didesain agar beberapa area bisa dimatikan lewat toggle dan menampilkan fallback yang jelas.
+</Tip>

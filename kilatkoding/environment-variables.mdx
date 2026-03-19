@@ -1,0 +1,107 @@
+---
+title: "Environment variables"
+description: "Referensi lengkap environment variables KilatKoding, termasuk toggle fitur dan env opsional yang tidak ada di `.env.example`."
+mode: "wide"
+---
+
+<Warning>
+Variabel dengan prefix `NEXT_PUBLIC_` akan tersedia di browser. Jangan menaruh secret server-only dengan prefix itu.
+</Warning>
+
+## Core app dan Supabase
+
+| Variable | Dipakai saat | Wajib? | Keterangan |
+| --- | --- | --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | Auth atau data app aktif | Ya, untuk auth/data | URL project Supabase |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Auth atau data app aktif | Ya, untuk auth/data | Publishable atau anon key Supabase |
+| `SUPABASE_SERVICE_ROLE_KEY` | Billing, admin, avatar, webhook, audit, persistent rate limit | Ya, untuk fitur server-only | Jangan pernah expose ke client |
+| `NEXT_PUBLIC_APP_URL` | Selalu sebaiknya diisi | Sangat disarankan | Base URL app untuk callback, order page, dan metadata |
+
+## Toggle fitur
+
+Jika env toggle tidak diisi, repo menganggap fitur tersebut aktif. Isi `false`, `0`, `no`, atau `off` untuk mematikannya.
+
+| Variable | Fungsi |
+| --- | --- |
+| `NEXT_PUBLIC_ENABLE_AUTH` | Mengontrol login, signup, dashboard, settings, dan auth-aware shell |
+| `NEXT_PUBLIC_ENABLE_WAITLIST` | Mengontrol halaman dan API waitlist |
+| `NEXT_PUBLIC_ENABLE_CONTACT` | Mengontrol form kontak |
+| `NEXT_PUBLIC_ENABLE_PAYMENTS` | Mengontrol billing, checkout, dan payment-related UI |
+| `NEXT_PUBLIC_ENABLE_ADMIN` | Mengontrol admin dashboard |
+| `NEXT_PUBLIC_ENABLE_AI` | Mengontrol AI routes dan UI terkait |
+
+## Payments
+
+| Variable | Wajib saat | Keterangan |
+| --- | --- | --- |
+| `PAYMENT_PROVIDER` | Payments aktif | Nilai valid: `midtrans` atau `doku` |
+| `MIDTRANS_SERVER_KEY` | `PAYMENT_PROVIDER=midtrans` | Secret server-only untuk Midtrans |
+| `NEXT_PUBLIC_MIDTRANS_CLIENT_KEY` | `PAYMENT_PROVIDER=midtrans` | Client key untuk membuka Snap popup |
+| `DOKU_CLIENT_ID` | `PAYMENT_PROVIDER=doku` | Client ID merchant Doku |
+| `DOKU_SECRET_KEY` | `PAYMENT_PROVIDER=doku` | Secret key merchant Doku |
+
+## Email dan contact
+
+| Variable | Wajib saat | Keterangan |
+| --- | --- | --- |
+| `RESEND_API_KEY` | Contact form atau email aktif | API key Resend |
+| `EMAIL_FROM` | Disarankan saat email aktif | Sender email. Kalau kosong, repo memakai default KilatKoding |
+| `CONTACT_EMAIL` | Opsional | Email tujuan form kontak. Kalau kosong, fallback ke `EMAIL_FROM` |
+
+## Admin dan access control
+
+| Variable | Wajib saat | Keterangan |
+| --- | --- | --- |
+| `ADMIN_EMAILS` | Opsional | Daftar email bootstrap admin, dipisahkan koma |
+
+`ADMIN_EMAILS` bukan source of truth akhir. Setelah user masuk, repo akan mengelola role nyata lewat tabel `user_roles`.
+
+## AI
+
+| Variable | Wajib saat | Keterangan |
+| --- | --- | --- |
+| `AI_DEFAULT_PROVIDER` | AI aktif | Nilai valid: `openai` atau `anthropic` |
+| `OPENAI_API_KEY` | `AI_DEFAULT_PROVIDER=openai` | Secret untuk route AI OpenAI |
+| `ANTHROPIC_API_KEY` | `AI_DEFAULT_PROVIDER=anthropic` | Secret untuk route AI Anthropic |
+
+## Env opsional untuk operasional
+
+| Variable | Dipakai oleh | Keterangan |
+| --- | --- | --- |
+| `VERCEL_URL` | Metadata base URL saat deploy | Biasanya diisi otomatis oleh Vercel |
+| `PLAYWRIGHT_BASE_URL` | Playwright | Memungkinkan test E2E memakai server yang sudah hidup |
+| `CI` | GitHub Actions atau CI lain | Mengatur retry dan reporter tertentu di Playwright |
+
+## Contoh minimal `.env.local`
+
+Gunakan contoh ini kalau Anda hanya ingin auth, dashboard, dan satu payment provider:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+NEXT_PUBLIC_ENABLE_AUTH=true
+NEXT_PUBLIC_ENABLE_WAITLIST=false
+NEXT_PUBLIC_ENABLE_CONTACT=false
+NEXT_PUBLIC_ENABLE_PAYMENTS=true
+NEXT_PUBLIC_ENABLE_ADMIN=true
+NEXT_PUBLIC_ENABLE_AI=false
+
+PAYMENT_PROVIDER=doku
+DOKU_CLIENT_ID=
+DOKU_SECRET_KEY=
+
+ADMIN_EMAILS=you@example.com
+```
+
+## Cara mengecek env dengan cepat
+
+1. Jalankan `npm run env:check`.
+2. Baca status `ready`, `fallback mode`, atau `disabled by ...`.
+3. Setelah app hidup, buka `GET /api/health` untuk melihat readiness yang lebih detail.
+
+<Tip>
+Kalau sebuah fitur memang belum Anda pakai, lebih baik matikan lewat toggle daripada membiarkannya aktif tanpa konfigurasi.
+</Tip>

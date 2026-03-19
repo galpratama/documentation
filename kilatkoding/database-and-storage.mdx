@@ -1,0 +1,106 @@
+---
+title: "Database dan storage"
+description: "Pelajari migrasi, tabel utama, avatar storage, audit log, webhook ledger, dan rate limit persistence di KilatKoding."
+mode: "wide"
+---
+
+## Ringkasan
+
+KilatKoding menyimpan state utamanya di Supabase PostgreSQL. Selain tabel user-facing seperti profile, subscription, dan payments, repo ini juga sudah menyiapkan tabel operasional seperti webhook events, audit logs, dan persistent rate limits.
+
+## Migrasi yang tersedia
+
+| File | Membuat atau menambah |
+| --- | --- |
+| `20260316000001_create_profiles.sql` | Tabel `profiles` dan trigger auto-create profile |
+| `20260316000002_create_subscriptions.sql` | Tabel `subscriptions` dan FREE tier default |
+| `20260316000003_create_payments.sql` | Tabel `payments` dan enum pembayaran |
+| `20260316000004_create_waitlist.sql` | Tabel `waitlist` |
+| `20260316000005_create_ai_usage.sql` | Tabel `ai_usage` |
+| `20260317000006_add_admin_roles_and_billing_hardening.sql` | Tabel `user_roles`, metadata billing, index dan RPC admin |
+| `20260317000007_add_avatar_storage.sql` | Kolom avatar profile dan storage bucket `avatars` |
+| `20260317000008_add_webhook_events.sql` | Tabel `webhook_events` dan RPC claim idempotent |
+| `20260317000009_add_persistent_rate_limits.sql` | Tabel `rate_limit_buckets` dan RPC consume rate limit |
+| `20260317000010_add_audit_logs.sql` | Tabel `audit_logs` |
+
+## Tabel yang paling penting
+
+| Tabel | Fungsi |
+| --- | --- |
+| `profiles` | Nama lengkap, avatar, metadata profil |
+| `subscriptions` | Plan aktif, status, periode berjalan, cancel flags |
+| `payments` | Riwayat pembayaran dan metadata gateway |
+| `waitlist` | Daftar email waitlist |
+| `ai_usage` | Tracking penggunaan token AI |
+| `user_roles` | Role aplikasi seperti `admin` dan `member` |
+| `webhook_events` | Ledger event webhook |
+| `rate_limit_buckets` | Penyimpanan rate limit persisten |
+| `audit_logs` | Jejak perubahan penting |
+
+## Source of truth access control
+
+Source of truth akses admin adalah tabel `user_roles`, bukan `ADMIN_EMAILS`.
+
+`ADMIN_EMAILS` hanya dipakai sebagai bootstrap awal agar email tertentu otomatis di-upsert menjadi admin saat login pertama.
+
+## Avatar storage
+
+Repo ini memakai bucket `avatars` di Supabase Storage.
+
+### Aturan penting
+
+- ukuran maksimal avatar: 2 MB
+- format yang diterima: `image/jpeg`, `image/png`, `image/webp`, `image/gif`
+- object path: `${userId}/avatar`
+- signed URL avatar berlaku terbatas dan dibuat saat dibutuhkan
+
+## Webhook ledger
+
+Tabel `webhook_events` dipakai untuk:
+
+- mencegah duplicate processing,
+- menyimpan payload event,
+- mencatat status `processed` atau `failed`,
+- membantu debugging dari admin dashboard.
+
+## Audit log
+
+Tabel `audit_logs` menangkap event seperti:
+
+- perubahan profil,
+- aksi admin,
+- status payment sukses atau gagal,
+- perubahan subscription.
+
+Ini penting untuk operasi harian dan investigasi masalah.
+
+## Persistent rate limit
+
+Jika `SUPABASE_SERVICE_ROLE_KEY` tersedia, KilatKoding akan memakai Supabase untuk rate limit persisten pada:
+
+- contact form,
+- waitlist,
+- payment creation,
+- AI routes.
+
+Kalau env itu tidak ada, repo fallback ke in-memory rate limit. Cocok untuk local development, tetapi tidak ideal untuk production multi-instance.
+
+## Cara apply migrasi
+
+```bash
+npx supabase db push
+```
+
+Kalau Anda tidak memakai Supabase CLI, Anda bisa menyalin file SQL ke SQL editor Supabase secara berurutan.
+
+## Cara generate ulang type database
+
+```bash
+npx supabase gen types typescript --project-id YOUR_PROJECT_ID > types/database.ts
+```
+
+Lakukan ini setelah migrasi live Anda benar-benar sudah sesuai.
+
+<Tip>
+Kalau billing, admin, avatar, atau webhook terasa tidak konsisten, cek dulu apakah semua migrasi sudah benar-benar terpasang di project Supabase Anda.
+</Tip>

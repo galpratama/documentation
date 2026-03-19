@@ -1,0 +1,137 @@
+---
+title: "Setup layanan"
+description: "Hubungkan KilatKoding ke Supabase, Resend, Midtrans, Doku, dan provider AI sesuai kebutuhan produk Anda."
+mode: "wide"
+---
+
+## Prinsip dasar
+
+Anda tidak harus menyalakan semua layanan. KilatKoding mendukung setup bertahap. Jika satu fitur belum siap, Anda bisa mematikannya lewat toggle env.
+
+## 1. Supabase
+
+Supabase adalah fondasi utama untuk auth dan database. Jika Anda ingin memakai login, dashboard, billing, admin, waitlist, avatar, atau audit log, mulai dari sini.
+
+### Langkah setup
+
+1. Buat project Supabase baru.
+2. Ambil `NEXT_PUBLIC_SUPABASE_URL` dan `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` dari **Project Settings** > **API**.
+3. Ambil `SUPABASE_SERVICE_ROLE_KEY` untuk kebutuhan server-only seperti webhook, admin reporting, avatar signed URL, persistent rate limit, dan audit log.
+4. Jalankan migrasi database:
+
+```bash
+npx supabase db push
+```
+
+5. Tambahkan redirect URL berikut di **Authentication** > **URL Configuration**:
+
+```text
+http://localhost:3000/auth/confirm
+http://localhost:3000/auth/update-password
+```
+
+Untuk production, ganti domain lokal dengan domain live Anda.
+
+### Kalau Anda ingin Google OAuth
+
+1. Aktifkan provider Google di dashboard Supabase.
+2. Masukkan Google Client ID dan Secret.
+3. Tambahkan callback URL dari Supabase ke pengaturan OAuth app Anda di Google Cloud.
+
+## 2. Resend
+
+Gunakan Resend jika Anda ingin mengirim email dari form kontak atau email transaksional.
+
+### Yang perlu diisi
+
+- `RESEND_API_KEY`
+- `EMAIL_FROM`
+- `CONTACT_EMAIL` jika email penerima form kontak berbeda dari `EMAIL_FROM`
+
+### Yang sudah disiapkan di repo
+
+- template `emails/welcome.tsx`
+- template `emails/invoice.tsx`
+- helper `lib/email.ts`
+- route `POST /api/contact`
+
+## 3. Midtrans
+
+Gunakan Midtrans jika Anda ingin checkout lewat Snap.
+
+### Yang perlu diisi
+
+- `PAYMENT_PROVIDER=midtrans`
+- `MIDTRANS_SERVER_KEY`
+- `NEXT_PUBLIC_MIDTRANS_CLIENT_KEY`
+
+### Langkah setup
+
+1. Ambil sandbox key untuk development.
+2. Ambil production key untuk environment live.
+3. Daftarkan webhook:
+
+```text
+https://domain-anda.com/api/webhooks/midtrans
+```
+
+4. Pastikan return URL user mengarah ke halaman order Anda. KilatKoding memakai `/order/[id]` dan punya fallback di `/payment/callback`.
+
+## 4. Doku
+
+Gunakan Doku jika Anda ingin checkout lewat JOKUL.
+
+### Yang perlu diisi
+
+- `PAYMENT_PROVIDER=doku`
+- `DOKU_CLIENT_ID`
+- `DOKU_SECRET_KEY`
+
+### Langkah setup
+
+1. Ambil sandbox credential untuk development.
+2. Ambil production credential untuk live.
+3. Daftarkan webhook:
+
+```text
+https://domain-anda.com/api/webhooks/doku
+```
+
+## 5. AI provider
+
+AI bersifat opsional. Kalau Anda tidak butuh AI, set `NEXT_PUBLIC_ENABLE_AI=false`.
+
+### Pilihan provider
+
+- `AI_DEFAULT_PROVIDER=openai` dengan `OPENAI_API_KEY`
+- `AI_DEFAULT_PROVIDER=anthropic` dengan `ANTHROPIC_API_KEY`
+
+Per kode saat ini, pemetaan model default adalah:
+
+- OpenAI: `gpt-4o`
+- Anthropic: `claude-sonnet-4-20250514`
+
+Snapshot ini berasal dari kode repo per 19 Maret 2026.
+
+## Fitur mana yang bergantung pada layanan mana
+
+| Fitur | Layanan minimum |
+| --- | --- |
+| Login, signup, dashboard | Supabase public env |
+| Billing actions | Supabase public env + service role |
+| Payments end-to-end | Supabase public env + service role + Midtrans atau Doku |
+| Contact form | Resend |
+| Waitlist | Supabase public env |
+| Admin dashboard | Supabase public env + service role |
+| AI routes | Supabase public env + OpenAI atau Anthropic |
+
+## Urutan integrasi yang direkomendasikan
+
+1. Supabase
+2. Resend
+3. Midtrans atau Doku
+4. AI provider
+
+<Tip>
+Kalau Anda ingin launch cepat, aktifkan dulu Supabase dan satu payment provider. Resend dan AI bisa ditambahkan sesudah alur utama berjalan.
+</Tip>

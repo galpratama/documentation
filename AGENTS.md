@@ -1,33 +1,126 @@
-> **First-time setup**: Customize this file for your project. Prompt the user to customize this file for their project.
-> For Mintlify product knowledge (components, configuration, writing standards),
-> install the Mintlify skill: `npx skills add https://mintlify.com/docs`
+# AGENTS.md
 
-# Documentation project instructions
+Repository guidance for agents working in `/Users/galpratama/Development/galpratama/belajarkoding-docs`.
 
-## About this project
+## Project summary
 
-- This is a documentation site built on [Mintlify](https://mintlify.com)
-- Pages are MDX files with YAML frontmatter
-- Configuration lives in `docs.json`
-- Run `mint dev` to preview locally
-- Run `mint broken-links` to check links
+This repository is the public documentation portal for BelajarKoding, built with [Mintlify](https://mintlify.com).
+
+Current documentation scope:
+
+- Product portal home page at `index.mdx`
+- Dedicated product documentation for KilatKoding under `kilatkoding/`
+- Site-wide configuration in `docs.json`
+
+The navigation is organized by product. KilatKoding must remain visible as its own dedicated product section in `docs.json`.
+
+## Primary source of truth
+
+When documenting KilatKoding, use the application repository as the source of truth:
+
+- `/Users/galpratama/Development/galpratama/kilatkoding-src`
+
+Check these files first before writing or updating docs:
+
+- `README.md`
+- `.env.example`
+- `package.json`
+- `config/*`
+- `app/*`
+- `lib/*`
+- `supabase/migrations/*`
+- `docs/en/*`
+- `docs/id/*`
+
+Do not invent features, routes, or configuration that are not present in the codebase.
+
+## Mintlify workflow
+
+- Pages are MDX files with YAML frontmatter.
+- Every new page must be added to `docs.json`, or it will not appear in navigation.
+- Prefer Mintlify built-in components such as `Card`, `Columns`, `Steps`, `Accordion`, `Info`, `Tip`, `Warning`, and `Note`.
+- If you change navigation, layout, or `docs.json` behavior, verify against official Mintlify docs first.
+- Use root-relative internal links without file extensions, for example `/kilatkoding/local-setup`.
+
+Useful commands:
+
+```bash
+mint dev
+npx mint validate
+npx mint broken-links
+```
+
+If Mintlify CLI validation fails because of outdated local framework assets, run:
+
+```bash
+npx mint update
+```
+
+## Information architecture rules
+
+- Keep `index.mdx` as the BelajarKoding docs portal page.
+- Keep KilatKoding docs inside the `kilatkoding/` directory.
+- If another product is added later, give it its own dedicated product entry in `docs.json`.
+- Do not mix multiple products into the same product navigation group.
+- Prefer shallow, readable groupings over deeply nested navigation.
+
+## Audience and writing style
+
+This documentation is written for both non-technical and technical readers.
+
+Write with these rules:
+
+- Primary language: Bahasa Indonesia, unless the user asks otherwise
+- Use active voice and second person
+- Keep sentences concise
+- Explain what something is before explaining how to use it
+- Prefer plain language before technical jargon
+- When setup is involved, include steps for Windows, macOS, and Linux where relevant
+- Clearly separate required items from optional items
+- Use exact names for routes, commands, env vars, files, and config values
+- Use bold for UI labels and backticks for commands, paths, env vars, and code references
 
 ## Terminology
 
-{/* Add product-specific terms and preferred usage */}
-{/* Example: Use "workspace" not "project", "member" not "user" */}
+Use these terms consistently:
 
-## Style preferences
+- "produk" for a documented offering in this portal
+- "boilerplate" for KilatKoding itself
+- "setup lokal" for local development setup
+- "environment variables" for env configuration
+- "user" for end users of the product
+- "admin" for internal operators with elevated access
+- "payment provider" for Midtrans or Doku
 
-{/* Add any project-specific style rules below */}
-
-- Use active voice and second person ("you")
-- Keep sentences concise — one idea per sentence
-- Use sentence case for headings
-- Bold for UI elements: Click **Settings**
-- Code formatting for file names, commands, paths, and code references
+Avoid swapping between multiple terms for the same concept without a reason.
 
 ## Content boundaries
 
-{/* Define what should and shouldn't be documented */}
-{/* Example: Don't document internal admin features */}
+- Document the current behavior of the codebase, not an ideal future state.
+- Mark roadmap or planned functionality clearly as not yet available.
+- Do not expose secrets, private keys, or sensitive internal values.
+- Do not claim that a feature is production-ready unless the repository already supports it.
+- Do not remove existing reference pages unless the change is intentional and navigation is updated accordingly.
+
+## Update expectations
+
+When documentation changes materially:
+
+1. Update or add the relevant MDX page.
+2. Update `docs.json` navigation if needed.
+3. Check internal links.
+4. Run `npx mint validate`.
+5. Run `npx mint broken-links`.
+
+## Current product coverage
+
+KilatKoding docs currently cover:
+
+- product overview
+- onboarding and setup planning
+- local setup across operating systems
+- service setup and env vars
+- features, routes, and customization
+- UI, architecture, database, deployment, and troubleshooting
+
+Preserve this structure unless there is a clear documentation reason to reorganize it.

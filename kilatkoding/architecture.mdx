@@ -1,0 +1,109 @@
+---
+title: "Arsitektur"
+description: "Pahami struktur folder, model rendering, dan alur utama auth, billing, webhook, serta data access di KilatKoding."
+mode: "wide"
+---
+
+## Struktur folder utama
+
+| Path | Fungsi |
+| --- | --- |
+| `app/` | Route App Router, layout, dan API route |
+| `components/` | Komponen reusable aplikasi |
+| `components/ui/` | Primitive shadcn/ui |
+| `config/` | Konfigurasi terpusat untuk site, navigasi, pricing, preset desain, roadmap, status, dan open startup |
+| `content/blog/` | Postingan blog MDX |
+| `emails/` | Template React Email |
+| `hooks/` | Hook client seperti auth, payment, subscription, dan AI chat |
+| `lib/` | Helper bersama, integrasi, SEO, validations, rate limit |
+| `lib/data/` | Data access layer untuk profile, payments, subscriptions, admin, audit, webhook events |
+| `lib/payments/` | Integrasi Midtrans dan Doku |
+| `lib/ai/` | Provider, middleware, dan usage tracking AI |
+| `lib/storage/` | Avatar storage helpers |
+| `supabase/migrations/` | SQL migration |
+| `tests/` | Unit test, DOM test, dan route test |
+| `e2e/` | Playwright smoke test |
+
+## Cara aplikasi ini dibagi
+
+### Route groups
+
+- `app/(marketing)/` untuk halaman publik.
+- `app/(dashboard)/` untuk area user yang login.
+- `app/auth/` untuk alur autentikasi.
+
+Route group memakai tanda kurung, jadi nama foldernya tidak masuk ke URL.
+
+## Model rendering
+
+- Server components adalah default.
+- Client components dipakai untuk form interaktif, switcher tema, design switcher, chart, dan hook browser.
+- Supabase browser client dibuat di `lib/supabase/client.ts`.
+- Supabase server client dibuat per request di `lib/supabase/server.ts`.
+
+## Alur auth
+
+1. User membuka halaman auth.
+2. Form client memanggil Supabase auth.
+3. `proxy.ts` dan `lib/supabase/proxy.ts` me-refresh session cookie pada request berikutnya.
+4. Route yang dilindungi seperti `/dashboard` dan `/admin` memeriksa user login.
+5. `/admin` juga memeriksa role admin dari `user_roles`.
+
+## Alur billing dan pembayaran
+
+1. User memilih plan di dashboard billing.
+2. Client memanggil `POST /api/payments`.
+3. Server mengambil harga dari `config/subscriptions.ts`.
+4. Server membuat record `payments` dengan status `PENDING`.
+5. Server mengembalikan Snap token Midtrans atau checkout URL Doku.
+6. Webhook provider masuk ke route webhook terkait.
+7. Route webhook memverifikasi signature, mencatat event, lalu mengaktifkan subscription saat pembayaran sukses.
+
+## Alur webhook yang tahan retry
+
+Webhook Midtrans dan Doku tidak langsung mengubah data tanpa pengaman. Repo ini memakai:
+
+- tabel `webhook_events`,
+- RPC claim idempotent,
+- status `processed` atau `failed`,
+- audit log untuk jejak pemrosesan.
+
+Itu berarti retry provider tidak otomatis membuat data ganda.
+
+## Alur profile dan avatar
+
+1. User meminta signed upload URL ke `POST /api/profile/avatar`.
+2. File di-upload ke bucket `avatars`.
+3. User menyimpan referensi avatar lewat `POST /api/profile`.
+4. Jika avatar lama diganti, object lama ikut dibersihkan.
+
+## Data access layer
+
+Repo ini tidak menaruh semua query langsung di route file. Banyak akses data dipisah ke `lib/data/*`, misalnya:
+
+- `payments.ts`
+- `subscriptions.ts`
+- `profiles.ts`
+- `admin.ts`
+- `audit-logs.ts`
+- `webhook-events.ts`
+- `user-roles.ts`
+
+Pola ini memudahkan testing dan memisahkan logika bisnis dari layer route.
+
+## Rate limiting
+
+Public form, payment, dan AI memakai `lib/rate-limit.ts`.
+
+- Jika `SUPABASE_SERVICE_ROLE_KEY` tersedia, repo memakai backend rate limit persisten di Supabase.
+- Jika tidak, repo fallback ke in-memory store lokal.
+- Response membawa header `X-RateLimit-*`.
+
+## Kapan halaman ini berguna
+
+Halaman ini penting saat Anda:
+
+- ingin refactor folder,
+- ingin menambah route baru,
+- ingin memahami mengapa session auth tetap sinkron,
+- ingin men-debug billing atau webhook.

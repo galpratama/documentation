@@ -1,0 +1,97 @@
+---
+title: "Komponen dan UI"
+description: "Pahami sistem UI KilatKoding, komponen yang tersedia, dan area yang paling sering Anda ubah saat rebranding."
+mode: "wide"
+---
+
+## Apa yang dipakai KilatKoding
+
+KilatKoding memakai:
+
+- Tailwind CSS 3
+- shadcn/ui
+- `next-themes`
+- CSS variables di `app/globals.css` dan `app/marketing.css`
+- design preset system untuk halaman marketing
+
+## Dua jenis komponen yang perlu Anda kenal
+
+| Layer | Lokasi | Fungsi |
+| --- | --- | --- |
+| Primitive UI | `components/ui/` | Button, input, dialog, table, tabs, badge, dan komponen dasar lain |
+| Product components | `components/sections/`, `components/dashboard/`, `components/admin/`, `components/docs/` | Blok yang sudah siap dipakai untuk halaman nyata |
+
+## Komponen dasar yang sudah terpasang
+
+Repo ini saat ini membawa 44 primitive shadcn/ui, termasuk:
+
+- form controls seperti `input`, `textarea`, `checkbox`, `select`, `switch`
+- layout dan display seperti `card`, `table`, `tabs`, `accordion`, `sheet`
+- feedback seperti `alert`, `alert-dialog`, `tooltip`, `sonner`
+- navigation helpers seperti `breadcrumb`, `navigation-menu`, `pagination`
+
+## Showcase yang sudah ada
+
+| Route | Fungsi |
+| --- | --- |
+| `/docs/components` | Showcase komponen UI publik dengan kategori dasar, kontrol, form, navigation, overlays, data, dan dashboard |
+| `/dashboard/components` | Showcase komponen dashboard dan admin untuk user login |
+
+Halaman publik `/docs/components` saat ini menampilkan 68 demo siap pakai, yang mencakup primitive dan komponen turunan dashboard.
+
+## Kategori showcase publik
+
+| Kategori | Contoh isi |
+| --- | --- |
+| Dasar | badge, button, card, avatar, separator |
+| Kontrol | switch, slider, toggle, radio group |
+| Form | input, textarea, form, checkbox, select |
+| Navigasi | breadcrumb, navigation menu, tabs, pagination |
+| Overlay | dialog, drawer, sheet, popover, tooltip |
+| Data | table, chart, progress, skeleton |
+| Dashboard | contoh komponen siap pakai untuk area produk |
+
+## Sistem preset desain marketing
+
+Halaman marketing mendukung 12 preset desain:
+
+- `default`
+- `monochrome`
+- `newsprint`
+- `luxury`
+- `academia`
+- `saas`
+- `professional`
+- `enterprise`
+- `neo-brutalism`
+- `bauhaus`
+- `web3`
+- `terminal`
+
+Preset ini berguna kalau Anda ingin:
+
+- menguji gaya visual berbeda tanpa menulis ulang struktur halaman,
+- mendemokan variasi style ke klien,
+- memilih arah desain sebelum melakukan polishing lebih lanjut.
+
+## File yang biasanya Anda ubah saat mengubah UI
+
+| Tujuan | File |
+| --- | --- |
+| Token warna dan radius global | `app/globals.css` |
+| Styling marketing khusus | `app/marketing.css` |
+| Ekstensi Tailwind | `tailwind.config.ts` |
+| Konfigurasi shadcn/ui | `components.json` |
+| Section landing page | `components/sections/*` |
+| Header dan footer | `components/layout/*` |
+
+## Rekomendasi saat rebranding
+
+1. Ubah copy dan struktur section terlebih dahulu.
+2. Baru sesuaikan warna, typography, dan spacing.
+3. Gunakan komponen `components/ui/` sebagai dasar, jangan membuat primitive baru tanpa alasan kuat.
+4. Cek kembali tampilan di halaman publik dan dashboard.
+
+<Tip>
+Kalau Anda ingin hasil visual yang cepat tetapi tetap konsisten, mulai dari preset marketing lalu lanjutkan ke token CSS global.
+</Tip>

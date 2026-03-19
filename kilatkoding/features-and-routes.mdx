@@ -1,0 +1,113 @@
+---
+title: "Fitur dan route"
+description: "Lihat semua area aplikasi KilatKoding yang sudah tersedia, termasuk route publik, auth, dashboard, admin, dan API."
+mode: "wide"
+---
+
+## Gambaran cepat
+
+KilatKoding dibagi menjadi empat area besar:
+
+- halaman marketing publik,
+- alur auth,
+- dashboard user dan admin,
+- route API untuk mutation dan webhook.
+
+## Halaman marketing publik
+
+| Route | Fungsi |
+| --- | --- |
+| `/` | Landing page utama |
+| `/about` | Halaman tentang produk |
+| `/affiliates` | Halaman program afiliasi atau partner |
+| `/blog` | Daftar artikel MDX |
+| `/blog/[slug]` | Detail artikel blog |
+| `/changelog` | Riwayat update produk |
+| `/checkout` | Halaman checkout |
+| `/compare` | Halaman perbandingan |
+| `/contact` | Form kontak |
+| `/docs/components` | Showcase komponen UI publik |
+| `/open` | Halaman open startup metrics |
+| `/order/[id]` | Halaman order setelah checkout |
+| `/privacy` | Kebijakan privasi |
+| `/roadmap` | Roadmap publik |
+| `/status` | Status layanan |
+| `/terms` | Syarat layanan |
+| `/use-cases` | Galeri use cases |
+| `/waitlist` | Halaman waitlist |
+
+## Route auth
+
+| Route | Fungsi |
+| --- | --- |
+| `/auth/login` | Login dengan password, Google, atau Magic Link |
+| `/auth/sign-up` | Registrasi akun |
+| `/auth/sign-up-success` | Konfirmasi setelah signup |
+| `/auth/verify-email` | Instruksi verifikasi email |
+| `/auth/forgot-password` | Minta reset password |
+| `/auth/update-password` | Set password baru |
+| `/auth/error` | Halaman error auth |
+| `/auth/confirm` | Callback OTP atau OAuth |
+
+## Dashboard user dan admin
+
+| Route | Akses | Fungsi |
+| --- | --- | --- |
+| `/dashboard` | User login | Ringkasan akun, subscription, pembayaran |
+| `/dashboard/settings` | User login | Profil, avatar, password |
+| `/dashboard/billing` | User login | Pilih paket, upgrade, cancel, resume |
+| `/dashboard/components` | User login | Showcase komponen dashboard dan admin |
+| `/admin` | Admin | Revenue, role management, webhook events, audit trail |
+
+## Route API
+
+| Route | Method | Fungsi |
+| --- | --- | --- |
+| `/api/payments` | `POST` | Membuat sesi pembayaran dan menyimpan pending payment |
+| `/api/profile` | `POST` | Memperbarui profil user |
+| `/api/profile/avatar` | `POST` | Membuat signed upload URL untuk avatar |
+| `/api/subscription` | `POST` | Cancel atau resume subscription |
+| `/api/webhooks/midtrans` | `POST` | Memverifikasi dan memproses webhook Midtrans |
+| `/api/webhooks/doku` | `POST` | Memverifikasi dan memproses webhook Doku |
+| `/api/admin/users/role` | `POST` | Mengubah role user dari admin dashboard |
+| `/api/contact` | `POST` | Mengirim pesan dari form kontak |
+| `/api/waitlist` | `POST` | Menyimpan pendaftaran waitlist |
+| `/api/ai/chat` | `POST` | Streaming chat AI |
+| `/api/ai/generate` | `POST` | One-shot text generation |
+| `/api/health` | `GET` | Health check konfigurasi dan database |
+
+## Fitur yang terlihat pengguna akhir
+
+Dari sisi pengguna akhir, KilatKoding sudah mendukung:
+
+- registrasi dan login,
+- pengelolaan profil,
+- pembelian paket,
+- pengecekan status langganan,
+- pembacaan konten blog,
+- pengiriman pesan lewat contact form,
+- pendaftaran waitlist.
+
+## Fitur yang terlihat tim internal
+
+Dari sisi admin atau operator, KilatKoding sudah mendukung:
+
+- melihat metrik revenue,
+- melihat total subscription aktif dan paket berbayar,
+- mengelola role admin,
+- melihat event webhook,
+- membaca audit trail,
+- meninjau riwayat pembayaran.
+
+## Proteksi route
+
+| Area | Mekanisme |
+| --- | --- |
+| `/dashboard` dan turunannya | Dicek lewat `proxy.ts` dan klaim auth Supabase |
+| `/admin` | Dicek lewat auth + role `admin` dari `user_roles` |
+| Route mutation user | Memakai user login |
+| Webhook | Memakai verifikasi signature provider |
+
+<Tip>
+Kalau Anda mematikan sebuah fitur dengan env toggle, pertimbangkan juga untuk menghapus atau menyesuaikan link navigasinya agar user tidak melihat jalur yang tidak dipakai.
+</Tip>

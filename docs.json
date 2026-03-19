@@ -1,122 +1,104 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "BelajarKoding Docs",
+  "description": "Portal dokumentasi produk BelajarKoding. Saat ini tersedia dokumentasi lengkap untuk KilatKoding.",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
     "dark": "#15803D"
   },
   "favicon": "/favicon.svg",
+  "styling": {
+    "eyebrows": "breadcrumbs"
+  },
   "navigation": {
-    "tabs": [
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Portal",
+          "href": "/",
+          "icon": "house"
+        }
+      ]
+    },
+    "products": [
       {
-        "tab": "Guides",
+        "product": "KilatKoding",
+        "icon": "bolt",
+        "description": "Boilerplate Next.js untuk developer Indonesia dengan auth, pembayaran, email, blog, AI, dan dashboard yang siap pakai.",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Mulai di sini",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "kilatkoding/index",
+              "kilatkoding/product-overview",
+              "kilatkoding/getting-started",
+              "kilatkoding/local-setup"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Setup dan integrasi",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "kilatkoding/services-setup",
+              "kilatkoding/environment-variables"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Fitur dan konfigurasi",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "kilatkoding/features-and-routes",
+              "kilatkoding/customization",
+              "kilatkoding/components-and-ui",
+              "kilatkoding/ai-and-tooling"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Teknis",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
+              "kilatkoding/architecture",
+              "kilatkoding/database-and-storage"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Operasional",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "kilatkoding/testing-and-deployment",
+              "kilatkoding/troubleshooting"
             ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "dark": "/logo/dark.svg",
+    "href": "/"
   },
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "label": "Portal",
+        "href": "/"
       }
     ],
     "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "type": "github",
+      "href": "https://github.com/galpratama/kilatkoding-src"
     }
   },
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "chatgpt",
+      "claude"
+    ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "github": "https://github.com/galpratama/kilatkoding-src"
     }
   }
 }

@@ -1,0 +1,95 @@
+---
+title: "AI dan tooling"
+description: "Pahami fitur AI runtime di KilatKoding dan file tooling yang membuat repo ini ramah untuk AI coding assistants."
+mode: "wide"
+---
+
+## Dua sisi AI di KilatKoding
+
+KilatKoding punya dua lapisan AI:
+
+- fitur AI untuk produk Anda,
+- konfigurasi AI coding assistants untuk tim pengembang.
+
+## Fitur AI untuk produk Anda
+
+### Route yang tersedia
+
+| Route | Fungsi |
+| --- | --- |
+| `/api/ai/chat` | Streaming chat |
+| `/api/ai/generate` | One-shot text generation |
+
+### File inti
+
+| File | Fungsi |
+| --- | --- |
+| `lib/ai/provider.ts` | Memilih provider dan model |
+| `lib/ai/middleware.ts` | Auth check, provider check, usage limit |
+| `lib/ai/usage.ts` | Tracking token dan batas per plan |
+| `hooks/use-ai-chat.ts` | Hook client untuk UI chat |
+
+### Provider yang didukung
+
+| Provider | Env yang dibutuhkan | Model default per 19 Maret 2026 |
+| --- | --- | --- |
+| OpenAI | `OPENAI_API_KEY` | `gpt-4o` |
+| Anthropic | `ANTHROPIC_API_KEY` | `claude-sonnet-4-20250514` |
+
+### Batas token per plan
+
+| Plan | Batas token bulanan |
+| --- | --- |
+| `FREE` | `0` |
+| `BASIC` | `10_000` |
+| `PRO` | `100_000` |
+| `ULTIMATE` | Tidak dibatasi |
+
+### Rate limit request AI
+
+| Plan | Limit request |
+| --- | --- |
+| `FREE` | 10 request per 5 menit |
+| `BASIC` | 20 request per 5 menit |
+| `PRO` | 40 request per 5 menit |
+| `ULTIMATE` | 80 request per 5 menit |
+
+## Cara mematikan AI
+
+Jika produk Anda belum butuh AI:
+
+```env
+NEXT_PUBLIC_ENABLE_AI=false
+```
+
+Dengan cara ini, Anda tidak perlu menghapus route atau file AI.
+
+## Tooling AI untuk pengembang
+
+Repo ini juga menyertakan file konteks untuk beberapa AI coding tools:
+
+| File | Tool |
+| --- | --- |
+| `AGENTS.md` | Agent umum dan workflow repo |
+| `CLAUDE.md` | Claude Code |
+| `.github/copilot-instructions.md` | GitHub Copilot |
+| `.cursorrules` | Cursor |
+| `.windsurfrules` | Windsurf |
+
+Tujuannya adalah memberi konteks tentang stack, struktur, dan workflow repo supaya output AI lebih relevan.
+
+## Kapan Anda perlu menyentuh area ini
+
+- Anda ingin menyalakan fitur AI untuk user akhir.
+- Anda ingin mengganti provider default.
+- Anda ingin menyesuaikan limit token per plan.
+- Anda ingin memperbarui instruksi untuk AI coding assistants yang dipakai tim Anda.
+
+## Kapan Anda tidak perlu menyentuh area ini
+
+- Anda belum butuh AI di produk.
+- Anda hanya ingin mengubah branding, konten, atau halaman marketing.
+
+<Tip>
+Kalau Anda sedang fokus launch MVP, AI bisa dibiarkan mati lebih dulu. KilatKoding tetap berguna walau fitur AI tidak diaktifkan.
+</Tip>

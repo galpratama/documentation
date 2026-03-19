@@ -1,0 +1,154 @@
+---
+title: "Setup lokal"
+description: "Ikuti langkah setup lokal KilatKoding untuk Windows, macOS, atau Linux."
+---
+
+## Prasyarat
+
+Repo ini pernah diverifikasi dengan Node.js `24.4.1` dan npm `11.4.2`. Pada praktiknya, versi Node modern yang kompatibel dengan Next.js 16 biasanya cukup, tetapi angka itu adalah snapshot yang dipakai repo ini per 19 Maret 2026.
+
+Anda juga perlu:
+
+- Git
+- editor kode seperti VS Code
+- akses ke repo atau file ZIP project
+
+## Siapkan tools per sistem operasi
+
+<AccordionGroup>
+  <Accordion title="Windows">
+    Gunakan PowerShell atau Terminal bawaan VS Code.
+
+    Cara cepat lewat `winget`:
+
+    ```powershell
+    winget install Git.Git
+    winget install OpenJS.NodeJS.LTS
+    ```
+
+    Setelah selesai, tutup lalu buka ulang terminal Anda. Pastikan kedua command ini berhasil:
+
+    ```powershell
+    git --version
+    node --version
+    npm --version
+    ```
+  </Accordion>
+  <Accordion title="macOS">
+    Jika Anda memakai Homebrew:
+
+    ```bash
+    brew install git node
+    ```
+
+    Lalu verifikasi:
+
+    ```bash
+    git --version
+    node --version
+    npm --version
+    ```
+  </Accordion>
+  <Accordion title="Linux">
+    Contoh berikut memakai Ubuntu atau Debian. Jika distro Anda berbeda, gunakan package manager setara.
+
+    ```bash
+    sudo apt update
+    sudo apt install -y git nodejs npm
+    ```
+
+    Lalu verifikasi:
+
+    ```bash
+    git --version
+    node --version
+    npm --version
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Jalankan project pertama kali
+
+<Steps>
+  <Step title="Ambil source code">
+    Jika Anda menerima akses repo, clone repo tersebut. Jika Anda menerima ZIP, ekstrak ke folder kerja Anda.
+
+    ```bash
+    git clone <repo-url-anda>
+    cd kilatkoding-src
+    ```
+  </Step>
+  <Step title="Install dependencies">
+    Jalankan:
+
+    ```bash
+    npm install
+    ```
+  </Step>
+  <Step title="Buat file environment lokal">
+    macOS atau Linux:
+
+    ```bash
+    cp .env.example .env.local
+    ```
+
+    Windows PowerShell:
+
+    ```powershell
+    Copy-Item .env.example .env.local
+    ```
+  </Step>
+  <Step title="Isi `.env.local`">
+    Lihat [Environment variables](/kilatkoding/environment-variables) untuk arti setiap variabel. Jangan menebak nama env. Repo ini sudah punya pola yang jelas.
+  </Step>
+  <Step title="Cek readiness">
+    Jalankan:
+
+    ```bash
+    npm run env:check
+    ```
+
+    Command ini akan memberi tahu fitur mana yang sudah siap, mana yang fallback, dan mana yang sengaja dimatikan.
+  </Step>
+  <Step title="Hidupkan aplikasi">
+    Jalankan:
+
+    ```bash
+    npm run dev
+    ```
+
+    Lalu buka `http://localhost:3000`.
+  </Step>
+</Steps>
+
+## Kalau Anda juga ingin menjalankan E2E test
+
+Install browser Playwright sekali saja:
+
+```bash
+npx playwright install chromium
+```
+
+Lalu jalankan:
+
+```bash
+npm run e2e
+```
+
+## Tanda setup lokal Anda berhasil
+
+| Yang dicek | Hasil yang diharapkan |
+| --- | --- |
+| `npm run env:check` | Tidak ada error fatal untuk fitur yang Anda aktifkan |
+| `npm run dev` | Dev server hidup tanpa crash |
+| `http://localhost:3000` | Landing page tampil |
+| Login atau dashboard | Berjalan jika auth aktif dan Supabase sudah benar |
+
+## Error paling umum saat setup lokal
+
+- Node terlalu lama atau terlalu baru untuk dependency tertentu.
+- `.env.local` belum dibuat.
+- Supabase env belum diisi tetapi auth tetap dibiarkan aktif.
+- Payment atau AI diaktifkan tanpa env yang dibutuhkan.
+
+Kalau salah satu hal di atas terjadi, buka [Troubleshooting](/kilatkoding/troubleshooting).
