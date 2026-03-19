@@ -1,0 +1,100 @@
+---
+title: "KilatKoding comparison"
+description: "Compare KilatKoding with starting from scratch, using a UI-only template, or building a fully custom app."
+mode: "wide"
+---
+
+<Info>
+This page helps you choose the right starting point. The goal is not to claim that KilatKoding is always the best option. The goal is to help you judge whether this boilerplate fits your scope, speed, and product type.
+</Info>
+
+## Quick summary
+
+| Starting option | Good fit when | Launch speed | What is already ready | Biggest trade-off |
+| --- | --- | --- | --- | --- |
+| KilatKoding | You want a product foundation that already includes marketing, auth, dashboard, billing, admin, email, blog, AI, and testing | Fast | Many product layers are already present | You still need custom work for the core business domain |
+| Start from scratch | Your requirements are highly specific from the foundation layer onward | Slowest | Almost nothing | Every decision, risk, and integration is on your team |
+| UI-only template | You mainly need a visual marketing site or dashboard UI, not a full product foundation | Medium | Layouts, sections, and visual components | Auth, payments, database, webhooks, and operations still need to be wired manually |
+| Fully custom build | The product is highly specific and the implementation budget is larger | Depends on the team | Everything can be designed from the start | Time, cost, and handover risk are usually higher |
+
+## When KilatKoding is usually strongest
+
+KilatKoding is usually a strong choice when:
+
+- you want to move faster without building auth, payments, admin, email, and dashboards from zero,
+- you want local payment providers such as Midtrans or Doku as part of the base stack,
+- you want docs that support non-technical founders and developers in the same workflow,
+- you prefer turning features off through toggles instead of building every module one by one,
+- you repeatedly build similar projects and want a base that is easy to rebrand.
+
+## Compare it against other starting points
+
+<AccordionGroup>
+  <Accordion title="KilatKoding vs starting from scratch">
+    **Choose KilatKoding when:**
+
+    - you want to save time on the foundation layer,
+    - you accept that the business domain still needs custom work,
+    - you want to move into validation, customization, and launch more quickly.
+
+    **Choose scratch when:**
+
+    - the product model is very different from a typical SaaS foundation,
+    - you need architecture designed from the ground up for requirements such as complex multi-tenant systems, heavy marketplace logic, or highly specific internal workflows,
+    - your team is prepared for a longer setup phase.
+
+    **Decision shortcut:** if your biggest questions are still around auth, billing, admin, and dashboards, KilatKoding is usually more efficient. If the real complexity lives in the core product architecture, starting from scratch may stay cleaner.
+  </Accordion>
+  <Accordion title="KilatKoding vs a UI-only template">
+    **Choose KilatKoding when:**
+
+    - you need more than visuals,
+    - the project needs auth, data, payments, admin, webhooks, and basic operations,
+    - you do not want to spend time wiring visual layers into backend and integration layers.
+
+    **Choose a UI template when:**
+
+    - you only need a marketing site or a visual dashboard shell,
+    - backend and product logic will be built in a very different way,
+    - the team cares more about art direction than a production-ready app foundation.
+
+    **Decision shortcut:** if the need is mainly visual, a UI template may be enough. If you need something that already behaves like a real product, KilatKoding is usually much closer to the finish line.
+  </Accordion>
+  <Accordion title="KilatKoding vs a fully custom team or agency build">
+    **Choose KilatKoding when:**
+
+    - you want to reduce repeated implementation work in common areas,
+    - you want custom effort focused on product differentiation rather than basic plumbing,
+    - you need a faster base for internal products, client work, or business validation.
+
+    **Choose a full custom build when:**
+
+    - stakeholder requirements are already very clear and highly specific,
+    - you want every flow, data model, and boundary designed from zero without inheriting a boilerplate pattern,
+    - budget and timeline are not the main constraints.
+
+    **Decision shortcut:** if your goal is "get live faster," KilatKoding is a better fit. If your goal is "design the whole system from scratch around a complex spec," full custom may be more appropriate.
+  </Accordion>
+</AccordionGroup>
+
+## When KilatKoding may not be the safest choice
+
+Consider another foundation when:
+
+- multi-tenant or team workspace support is a core day-one requirement,
+- mature usage-based billing must be part of the first launch,
+- the product is closer to a complex marketplace, physical e-commerce, or a large internal system with many special rules,
+- a mobile app is the primary deliverable rather than a web app first,
+- the team explicitly wants full architectural control from database through deployment pipeline.
+
+## A 5-minute decision path
+
+1. If you want to launch in weeks rather than months, start by evaluating KilatKoding.
+2. If you need local payments, auth, dashboards, and admin as the foundation, KilatKoding makes more sense than a UI-only template.
+3. If the product only needs a marketing site and visual pages, a UI template may already be enough.
+4. If the core requirement is highly unique and not close to a common SaaS shape, consider a custom build.
+5. If you are still unsure, continue to [KilatKoding use cases](/en/kilatkoding/use-cases), [What you can do without code vs what needs a developer](/en/kilatkoding/no-code-vs-developer), and [Preset recipes by use case](/en/kilatkoding/preset-recipes).
+
+<Tip>
+This page is most useful before you commit to setup. Once you choose a direction, continue to [Getting started](/en/kilatkoding/getting-started) so the product decision turns into actual toggles, env values, and service setup.
+</Tip>

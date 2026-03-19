@@ -1,0 +1,100 @@
+---
+title: "Perbandingan KilatKoding"
+description: "Bandingkan KilatKoding dengan mulai dari nol, template UI saja, atau build custom penuh."
+mode: "wide"
+---
+
+<Info>
+Halaman ini membantu kamu memilih titik mulai yang paling masuk akal. Tujuannya bukan meyakinkan bahwa KilatKoding selalu paling baik, tetapi membantu kamu menilai apakah boilerplate ini memang cocok untuk scope, kecepatan, dan tipe produk yang ingin kamu bangun.
+</Info>
+
+## Ringkasan cepat
+
+| Opsi mulai | Cocok kalau | Kecepatan launch | Yang sudah siap | Trade-off terbesar |
+| --- | --- | --- | --- | --- |
+| KilatKoding | Kamu ingin fondasi produk yang sudah mencakup marketing site, auth, dashboard, billing, admin, email, blog, AI, dan testing | Cepat | Banyak area produk sudah ada | Tetap perlu custom untuk domain bisnis inti |
+| Mulai dari nol | Kebutuhanmu sangat unik sejak layer paling dasar | Paling lambat | Hampir tidak ada | Semua keputusan, risiko, dan wiring ada di tim kamu |
+| Template UI saja | Kamu terutama butuh visual marketing site atau dashboard UI, bukan fondasi produk penuh | Sedang | Layout, page section, dan komponen visual | Auth, payment, database, webhook, dan operasional tetap harus kamu rakit |
+| Build custom penuh | Produkmu sangat khusus dan budget implementation lebih besar | Tergantung tim | Bisa disesuaikan dari awal | Waktu, biaya, dan risiko handover biasanya lebih tinggi |
+
+## Kapan KilatKoding paling terasa unggul
+
+KilatKoding biasanya jadi pilihan kuat kalau:
+
+- kamu ingin launch lebih cepat tanpa merakit auth, payment, admin, email, dan dashboard dari nol,
+- kamu butuh payment provider lokal seperti Midtrans atau Doku sebagai bagian dari fondasi,
+- kamu ingin docs yang bisa dipakai oleh founder non-teknis dan developer dalam alur yang sama,
+- kamu ingin mematikan fitur lewat toggle daripada membangun semua modul satu per satu,
+- kamu sering mengerjakan project serupa dan butuh base yang mudah di-rebrand.
+
+## Bandingkan dengan opsi lain
+
+<AccordionGroup>
+  <Accordion title="KilatKoding vs mulai dari nol">
+    **Pilih KilatKoding kalau:**
+
+    - kamu ingin menghemat waktu di layer fondasi,
+    - kamu menerima bahwa beberapa area domain produk tetap perlu custom,
+    - kamu ingin segera masuk ke fase validasi, kustomisasi, dan launch.
+
+    **Pilih mulai dari nol kalau:**
+
+    - model produkmu sangat berbeda dari pola SaaS umum,
+    - kamu butuh arsitektur yang dari awal dirancang untuk kebutuhan seperti multi-tenant kompleks, marketplace berat, atau flow internal yang sangat spesifik,
+    - tim kamu memang siap menanggung waktu setup awal yang lebih panjang.
+
+    **Shortcut keputusan:** kalau pertanyaan terbesar kamu sekarang masih seputar auth, billing, admin, dan dashboard, KilatKoding biasanya lebih efisien. Kalau pertanyaan terbesar kamu justru ada di arsitektur domain inti, mulai dari nol bisa lebih bersih.
+  </Accordion>
+  <Accordion title="KilatKoding vs template UI saja">
+    **Pilih KilatKoding kalau:**
+
+    - kamu butuh lebih dari sekadar tampilan,
+    - project harus punya auth, data, payment, admin, webhook, dan operasional dasar,
+    - kamu tidak ingin menghabiskan waktu menyambungkan layer visual ke backend dan integrasi inti.
+
+    **Pilih template UI kalau:**
+
+    - kamu hanya butuh landing page marketing atau admin UI visual,
+    - backend dan logic produk akan dibangun dengan cara yang sangat berbeda,
+    - tim kamu lebih mementingkan art direction visual daripada fondasi aplikasi siap pakai.
+
+    **Shortcut keputusan:** kalau kebutuhanmu masih sebatas tampilan, template UI bisa cukup. Kalau kamu butuh produk yang benar-benar bisa dijalankan, KilatKoding biasanya lebih dekat ke finish line.
+  </Accordion>
+  <Accordion title="KilatKoding vs build custom penuh lewat tim atau agency">
+    **Pilih KilatKoding kalau:**
+
+    - kamu ingin mengurangi jam kerja berulang di area yang sudah umum,
+    - kamu ingin scope custom difokuskan ke diferensiasi produk, bukan plumbing dasar,
+    - kamu butuh base yang lebih cepat untuk project internal, client work, atau validasi bisnis.
+
+    **Pilih build custom penuh kalau:**
+
+    - requirement stakeholder sudah sangat jelas dan sangat spesifik,
+    - kamu memang ingin semua flow, data model, dan boundary dirancang dari awal tanpa mewarisi pola boilerplate,
+    - budget dan timeline implementation bukan constraint utama.
+
+    **Shortcut keputusan:** kalau goal kamu adalah "lebih cepat live", KilatKoding lebih cocok. Kalau goal kamu adalah "desain sistem benar-benar dari nol sesuai spec kompleks", custom penuh bisa lebih tepat.
+  </Accordion>
+</AccordionGroup>
+
+## Saat KilatKoding bukan pilihan paling aman
+
+Pertimbangkan alternatif lain kalau:
+
+- multi-tenant atau team workspace adalah requirement inti dari hari pertama,
+- usage-based billing yang matang harus jadi fitur utama sejak launch pertama,
+- produkmu lebih dekat ke marketplace kompleks, e-commerce fisik, atau sistem internal besar dengan banyak rule khusus,
+- kamu butuh mobile app sebagai deliverable utama, bukan web app terlebih dahulu,
+- tim kamu memang ingin kontrol penuh atas arsitektur dari level database, domain, sampai deployment pipeline.
+
+## Keputusan cepat dalam 5 menit
+
+1. Kalau kamu ingin launch dalam hitungan minggu, bukan bulan, mulai evaluasi dari KilatKoding.
+2. Kalau kamu butuh payment lokal, auth, dashboard, dan admin sebagai fondasi, KilatKoding lebih masuk akal daripada template UI.
+3. Kalau produkmu hanya butuh landing page dan visual marketing, template UI saja mungkin sudah cukup.
+4. Kalau requirement inti ada di domain yang sangat unik dan tidak menyerupai SaaS umum, pertimbangkan build custom.
+5. Kalau kamu masih ragu, lanjutkan ke [Use case KilatKoding](/kilatkoding/use-cases), [Yang bisa dikerjakan tanpa coding vs butuh developer](/kilatkoding/no-code-vs-developer), dan [Resep preset per use case](/kilatkoding/preset-recipes).
+
+<Tip>
+Halaman ini paling berguna sebelum kamu commit ke setup. Setelah memilih arah, lanjut ke [Mulai dengan benar](/kilatkoding/getting-started) supaya keputusan produk langsung diterjemahkan ke toggle, env, dan service setup.
+</Tip>

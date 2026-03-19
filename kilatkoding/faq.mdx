@@ -1,0 +1,54 @@
+---
+title: "FAQ KilatKoding"
+description: "Jawaban cepat untuk pertanyaan paling umum tentang setup, use case, kustomisasi, dan batasan KilatKoding."
+mode: "wide"
+---
+
+<Info>
+Kalau kamu butuh jawaban cepat sebelum membaca semua halaman docs, mulai dari FAQ ini. Setiap jawaban di bawah sengaja singkat dan selalu diarahkan ke halaman detail yang relevan.
+</Info>
+
+## Pertanyaan yang paling sering muncul
+
+<AccordionGroup>
+  <Accordion title="Apakah saya harus mengaktifkan semua fitur KilatKoding?">
+    Tidak. Justru pendekatan yang lebih aman biasanya kebalikannya: aktifkan hanya modul yang memang dipakai, lalu matikan sisanya lewat `NEXT_PUBLIC_ENABLE_*`. Lihat [Matrix feature toggle](/kilatkoding/feature-toggle-matrix) dan [Environment variables](/kilatkoding/environment-variables).
+  </Accordion>
+  <Accordion title="Apakah KilatKoding cocok untuk orang non-teknis?">
+    Cocok untuk memahami apa yang sudah siap dipakai, memilih use case, menentukan fitur yang aktif, dan menyiapkan brief yang lebih jelas ke developer. Tetapi untuk custom besar, schema database, business logic inti, dan deployment production, kamu tetap akan terbantu kalau ada developer yang menangani bagian teknis. Lihat [Yang bisa dikerjakan tanpa coding vs butuh developer](/kilatkoding/no-code-vs-developer).
+  </Accordion>
+  <Accordion title="Apakah saya bisa pakai KilatKoding tanpa AI?">
+    Bisa. Set `NEXT_PUBLIC_ENABLE_AI=false`, lalu hapus CTA, copy, dan plan yang menyebut fitur AI. Baca [AI dan tooling](/kilatkoding/ai-and-tooling) dan [Resep rebranding](/kilatkoding/rebranding-recipes) kalau kamu ingin membersihkan jejak AI dari UI dan positioning produk.
+  </Accordion>
+  <Accordion title="Apakah saya harus memakai Midtrans dan Doku sekaligus?">
+    Tidak. Kamu cukup pilih satu provider lewat `PAYMENT_PROVIDER`, lalu isi credential provider yang sesuai. Midtrans dan Doku ada sebagai opsi, bukan kewajiban untuk dipakai bersamaan. Lihat [Setup layanan](/kilatkoding/services-setup) dan [Environment variables](/kilatkoding/environment-variables).
+  </Accordion>
+  <Accordion title="Kalau saya tidak butuh billing, apakah payments bisa dimatikan total?">
+    Bisa. Set `NEXT_PUBLIC_ENABLE_PAYMENTS=false`, lalu rapikan halaman pricing, CTA upgrade, dan alur checkout. Untuk skenario seperti portal member atau client area, ini justru sering jadi preset awal yang paling masuk akal. Lihat [Resep preset per use case](/kilatkoding/preset-recipes).
+  </Accordion>
+  <Accordion title="Apakah saya bisa launch hanya dengan landing page dan waitlist dulu?">
+    Bisa. Itu salah satu jalur paling aman untuk validasi awal. Kamu bisa mematikan auth, payments, admin, dan AI lebih dulu, lalu fokus ke landing page, contact form, blog, roadmap, dan waitlist. Lihat [Use case KilatKoding](/kilatkoding/use-cases), [Resep preset per use case](/kilatkoding/preset-recipes), dan [Checklist launch](/kilatkoding/launch-checklists).
+  </Accordion>
+  <Accordion title="Apakah KilatKoding bisa di-rebrand untuk klien atau white-label project?">
+    Bisa. Ini malah salah satu use case yang paling natural. Tetapi rebrand yang rapi biasanya mencakup lebih dari logo: navigation, copy, pricing, legal pages, email sender, CTA, dan modul yang memang harus dimatikan juga perlu dirapikan. Lihat [Kustomisasi](/kilatkoding/customization) dan [Resep rebranding](/kilatkoding/rebranding-recipes).
+  </Accordion>
+  <Accordion title="Apakah setup lokal mendukung Windows, macOS, dan Linux?">
+    Ya. Docs setup lokal memang ditulis khusus untuk tiga OS itu. Kalau kamu bekerja lintas tim, halaman ini biasanya jadi entry point paling aman untuk memastikan semua orang mulai dari urutan yang sama. Lihat [Setup lokal](/kilatkoding/local-setup).
+  </Accordion>
+  <Accordion title="Kapan saya tetap butuh developer?">
+    Kamu tetap butuh developer saat mulai masuk ke area seperti model data produk, schema database, permission yang lebih spesifik, webhook logic, AI experience yang lebih dalam, integrasi layanan tambahan, dan deployment production yang lebih kompleks. Lihat [Arsitektur](/kilatkoding/architecture), [Peta database](/kilatkoding/database-map), dan [API reference](/kilatkoding/api-reference).
+  </Accordion>
+  <Accordion title="Apakah KilatKoding cocok untuk marketplace atau multi-tenant app?">
+    Sebagai fondasi awal, iya. Sebagai solusi siap pakai untuk marketplace kompleks atau multi-tenant penuh, belum. KilatKoding bisa menghemat waktu di auth, billing, admin, dan marketing layer, tetapi logic inti seperti multi-seller, payout, escrow, atau team workspace tetap butuh custom besar. Lihat [Perbandingan KilatKoding](/kilatkoding/comparison) dan [Batasan saat ini](/kilatkoding/limitations).
+  </Accordion>
+  <Accordion title="Apakah harus deploy di Vercel?">
+    Tidak wajib. Tetapi jalur deployment yang paling detail di docs saat ini memang Vercel, jadi itu biasanya jadi opsi paling cepat untuk tim yang ingin mengikuti panduan apa adanya. Kalau kamu deploy ke platform lain, prinsip env, callback URL, dan webhook tetap sama, tetapi beberapa langkah operasional perlu kamu sesuaikan sendiri. Lihat [Deploy ke Vercel](/kilatkoding/vercel-deployment).
+  </Accordion>
+  <Accordion title="Halaman mana yang sebaiknya saya baca dulu kalau waktunya mepet?">
+    Mulai dari [Ringkasan produk](/kilatkoding/product-overview), [Use case KilatKoding](/kilatkoding/use-cases), [Perbandingan KilatKoding](/kilatkoding/comparison), lalu [Resep preset per use case](/kilatkoding/preset-recipes). Dari sana kamu biasanya sudah bisa memutuskan arah setup tanpa membaca semuanya sekaligus.
+  </Accordion>
+</AccordionGroup>
+
+<Tip>
+Kalau pertanyaan kamu belum terjawab di sini, cek juga [Glosarium](/kilatkoding/glossary), [Troubleshooting](/kilatkoding/troubleshooting), dan [Operational runbook](/kilatkoding/operational-runbook).
+</Tip>

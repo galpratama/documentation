@@ -1,0 +1,54 @@
+---
+title: "KilatKoding FAQ"
+description: "Quick answers to the most common questions about setup, use cases, customization, and current limitations in KilatKoding."
+mode: "wide"
+---
+
+<Info>
+If you want quick answers before reading the full docs set, start with this FAQ. Every answer below is intentionally short and points you to the right deeper page.
+</Info>
+
+## Most common questions
+
+<AccordionGroup>
+  <Accordion title="Do I need to enable every KilatKoding feature?">
+    No. In most cases the safer approach is the opposite: enable only the modules you actually need, then turn the rest off through `NEXT_PUBLIC_ENABLE_*`. See [Feature toggle matrix](/en/kilatkoding/feature-toggle-matrix) and [Environment variables](/en/kilatkoding/environment-variables).
+  </Accordion>
+  <Accordion title="Is KilatKoding useful for non-technical people too?">
+    Yes for understanding what is already ready, choosing a use case, deciding which features should stay active, and preparing a better brief for a developer. But once the work moves into large custom changes, schema design, core business logic, or production deployment, a developer still becomes very helpful. See [What you can do without code vs what needs a developer](/en/kilatkoding/no-code-vs-developer).
+  </Accordion>
+  <Accordion title="Can I use KilatKoding without AI?">
+    Yes. Set `NEXT_PUBLIC_ENABLE_AI=false`, then remove CTA copy, plan references, and messaging that mention AI. See [AI and tooling](/en/kilatkoding/ai-and-tooling) and [Rebranding recipes](/en/kilatkoding/rebranding-recipes) if you want to remove AI from both the product and the positioning.
+  </Accordion>
+  <Accordion title="Do I need Midtrans and Doku at the same time?">
+    No. You only need one provider through `PAYMENT_PROVIDER`, then you fill the matching provider credentials. Midtrans and Doku are alternatives, not a requirement to run together. See [Services setup](/en/kilatkoding/services-setup) and [Environment variables](/en/kilatkoding/environment-variables).
+  </Accordion>
+  <Accordion title="If I do not need billing, can payments be disabled completely?">
+    Yes. Set `NEXT_PUBLIC_ENABLE_PAYMENTS=false`, then clean up pricing pages, upgrade CTA copy, and checkout flows. For use cases such as member portals or client areas, this is often the most sensible starting preset. See [Preset recipes by use case](/en/kilatkoding/preset-recipes).
+  </Accordion>
+  <Accordion title="Can I launch with only a landing page and a waitlist first?">
+    Yes. That is one of the safest early paths. You can turn auth, payments, admin, and AI off first, then focus on the landing page, contact form, blog, roadmap, and waitlist. See [KilatKoding use cases](/en/kilatkoding/use-cases), [Preset recipes by use case](/en/kilatkoding/preset-recipes), and [Launch checklists](/en/kilatkoding/launch-checklists).
+  </Accordion>
+  <Accordion title="Can KilatKoding be rebranded for client or white-label projects?">
+    Yes. This is one of the most natural KilatKoding use cases. But a clean rebrand usually covers more than the logo: navigation, copy, pricing, legal pages, email sender, CTA structure, and any modules that should be turned off also need to be cleaned up. See [Customization](/en/kilatkoding/customization) and [Rebranding recipes](/en/kilatkoding/rebranding-recipes).
+  </Accordion>
+  <Accordion title="Does local setup support Windows, macOS, and Linux?">
+    Yes. The local setup docs are written specifically for those three operating systems. If your team works across platforms, this is usually the safest entry point to keep everyone on the same setup order. See [Local setup](/en/kilatkoding/local-setup).
+  </Accordion>
+  <Accordion title="When do I still need a developer?">
+    You still need a developer when the work reaches product-specific data models, database schema, more detailed permission rules, webhook logic, deeper AI experience work, extra service integrations, and more complex production deployment. See [Architecture](/en/kilatkoding/architecture), [Database map](/en/kilatkoding/database-map), and [API reference](/en/kilatkoding/api-reference).
+  </Accordion>
+  <Accordion title="Is KilatKoding a good fit for marketplace or multi-tenant apps?">
+    As a starting foundation, yes. As a ready-made marketplace or full multi-tenant solution, not yet. KilatKoding can save time in auth, billing, admin, and marketing layers, but the core logic for multi-seller flows, payouts, escrow, or team workspaces still needs a large custom layer. See [KilatKoding comparison](/en/kilatkoding/comparison) and [Current limitations](/en/kilatkoding/limitations).
+  </Accordion>
+  <Accordion title="Do I have to deploy on Vercel?">
+    No. But the most detailed deployment path in the docs currently uses Vercel, so it is usually the fastest option if your team wants to follow the documentation directly. If you deploy elsewhere, the same env, callback URL, and webhook principles still apply, but some operational steps will need to be adapted. See [Vercel deployment](/en/kilatkoding/vercel-deployment).
+  </Accordion>
+  <Accordion title="Which pages should I read first if I only have limited time?">
+    Start with [Product overview](/en/kilatkoding/product-overview), [KilatKoding use cases](/en/kilatkoding/use-cases), [KilatKoding comparison](/en/kilatkoding/comparison), then [Preset recipes by use case](/en/kilatkoding/preset-recipes). From there you can usually choose a setup direction without reading the whole site at once.
+  </Accordion>
+</AccordionGroup>
+
+<Tip>
+If your question is still not answered here, also check [Glossary](/en/kilatkoding/glossary), [Troubleshooting](/en/kilatkoding/troubleshooting), and [Operational runbook](/en/kilatkoding/operational-runbook).
+</Tip>

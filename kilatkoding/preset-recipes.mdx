@@ -1,0 +1,249 @@
+---
+title: "Resep preset per use case"
+description: "Pakai preset praktis untuk toggle fitur, env minimum, dan urutan setup sesuai skenario produk kamu."
+mode: "wide"
+---
+
+<Warning>
+Preset di halaman ini adalah titik mulai. Setelah meng-copy toggle awal, kamu tetap perlu merapikan CTA, navigasi, pricing, dan copy halaman supaya sesuai dengan fitur yang benar-benar aktif.
+</Warning>
+
+## Cara pakai halaman ini
+
+1. Pilih skenario yang paling dekat dengan produk kamu.
+2. Copy toggle awal ke `.env.local`.
+3. Isi env minimum sesuai layanan yang dipakai.
+4. Sambungkan provider yang relevan lewat [Setup layanan](/kilatkoding/services-setup).
+5. Jalankan `npm run env:check` lalu lanjut ke [Checklist launch](/kilatkoding/launch-checklists).
+
+## Pilih preset yang paling dekat
+
+| Preset | Fokus utama | Toggle yang paling menentukan | Layanan minimum |
+| --- | --- | --- | --- |
+| Waitlist dulu | Validasi demand dan audience | Auth `off`, Waitlist `on`, Payments `off` | Supabase, opsional Resend |
+| SaaS subscription | Billing dan dashboard user | Auth `on`, Payments `on`, Admin `on` | Supabase + Midtrans atau Doku |
+| Portal member atau client | Area login tertutup tanpa billing publik | Auth `on`, Payments `off` | Supabase |
+| SaaS AI berlangganan | Produk AI dengan akses berbasis plan | Auth `on`, AI `on`, Payments `on` | Supabase + AI provider + payment provider |
+| White-label agency base | Rebrand cepat untuk client | Auth `on`, Contact `on`, Payments opsional | Supabase, opsional Resend |
+
+## Preset yang bisa langsung kamu pakai
+
+<AccordionGroup>
+  <Accordion title="Waitlist dulu, aplikasi belakangan">
+    **Cocok untuk:** validasi ide, pre-launch landing page, atau campaign waitlist.
+
+    **Toggle awal**
+
+    ```env
+    NEXT_PUBLIC_ENABLE_AUTH=false
+    NEXT_PUBLIC_ENABLE_WAITLIST=true
+    NEXT_PUBLIC_ENABLE_CONTACT=true
+    NEXT_PUBLIC_ENABLE_PAYMENTS=false
+    NEXT_PUBLIC_ENABLE_ADMIN=false
+    NEXT_PUBLIC_ENABLE_AI=false
+    ```
+
+    **Env minimum**
+
+    ```env
+    NEXT_PUBLIC_SUPABASE_URL=
+    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+    NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+    RESEND_API_KEY=
+    EMAIL_FROM=
+    ```
+
+    **Jangan lupa**
+
+    - Matikan CTA yang mengarah ke login, dashboard, pricing berbayar, atau fitur AI.
+    - Kalau kamu belum butuh contact form, kamu bisa set `NEXT_PUBLIC_ENABLE_CONTACT=false` dan menghapus `RESEND_API_KEY`.
+    - Fokus kustomisasi biasanya ada di landing page, copy hero, waitlist CTA, dan FAQ.
+
+    **Buka juga:** [Use case KilatKoding](/kilatkoding/use-cases), [Kustomisasi](/kilatkoding/customization), dan [Checklist launch](/kilatkoding/launch-checklists).
+  </Accordion>
+  <Accordion title="SaaS subscription tanpa AI">
+    **Cocok untuk:** kebanyakan produk SaaS klasik dengan akun user, dashboard, dan billing.
+
+    **Toggle awal**
+
+    ```env
+    NEXT_PUBLIC_ENABLE_AUTH=true
+    NEXT_PUBLIC_ENABLE_WAITLIST=false
+    NEXT_PUBLIC_ENABLE_CONTACT=true
+    NEXT_PUBLIC_ENABLE_PAYMENTS=true
+    NEXT_PUBLIC_ENABLE_ADMIN=true
+    NEXT_PUBLIC_ENABLE_AI=false
+    ```
+
+    **Env minimum**
+
+    ```env
+    NEXT_PUBLIC_SUPABASE_URL=
+    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+    SUPABASE_SERVICE_ROLE_KEY=
+    NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+    PAYMENT_PROVIDER=doku
+    DOKU_CLIENT_ID=
+    DOKU_SECRET_KEY=
+
+    # Atau ganti ke Midtrans
+    # PAYMENT_PROVIDER=midtrans
+    # MIDTRANS_SERVER_KEY=
+    # NEXT_PUBLIC_MIDTRANS_CLIENT_KEY=
+
+    RESEND_API_KEY=
+    EMAIL_FROM=
+    ADMIN_EMAILS=you@example.com
+    ```
+
+    **Jangan lupa**
+
+    - Pilih satu payment provider dulu. Kamu tidak harus menyalakan Midtrans dan Doku sekaligus.
+    - `SUPABASE_SERVICE_ROLE_KEY` penting untuk write server-only seperti billing, webhook, audit, dan avatar signed URL.
+    - Kalau contact form tidak dipakai, kamu bisa matikan `NEXT_PUBLIC_ENABLE_CONTACT`.
+
+    **Buka juga:** [Setup layanan](/kilatkoding/services-setup), [Environment variables](/kilatkoding/environment-variables), dan [Testing recipes](/kilatkoding/testing-recipes).
+  </Accordion>
+  <Accordion title="Portal member atau client tanpa billing publik">
+    **Cocok untuk:** member area, dashboard siswa, portal klien agency, atau workspace internal.
+
+    **Toggle awal**
+
+    ```env
+    NEXT_PUBLIC_ENABLE_AUTH=true
+    NEXT_PUBLIC_ENABLE_WAITLIST=false
+    NEXT_PUBLIC_ENABLE_CONTACT=false
+    NEXT_PUBLIC_ENABLE_PAYMENTS=false
+    NEXT_PUBLIC_ENABLE_ADMIN=false
+    NEXT_PUBLIC_ENABLE_AI=false
+    ```
+
+    **Env minimum**
+
+    ```env
+    NEXT_PUBLIC_SUPABASE_URL=
+    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+    NEXT_PUBLIC_APP_URL=http://localhost:3000
+    ```
+
+    **Opsional kalau dibutuhkan**
+
+    ```env
+    SUPABASE_SERVICE_ROLE_KEY=
+    NEXT_PUBLIC_ENABLE_ADMIN=true
+    ADMIN_EMAILS=ops@example.com
+    ```
+
+    **Jangan lupa**
+
+    - Kustomisasi utama biasanya ada di menu dashboard, permission, dan model data produk kamu.
+    - Kalau avatar signed URL, audit log, atau admin reporting dipakai, tambahkan `SUPABASE_SERVICE_ROLE_KEY`.
+    - Karena payments mati, hapus CTA upgrade, pricing checkout, dan copy yang menjanjikan subscription.
+
+    **Buka juga:** [Komponen dan UI](/kilatkoding/components-and-ui), [Arsitektur](/kilatkoding/architecture), dan [Peta database](/kilatkoding/database-map).
+  </Accordion>
+  <Accordion title="SaaS AI dengan monetisasi plan">
+    **Cocok untuk:** AI writing tool, copilot internal, generator konten, atau workflow AI berbayar.
+
+    **Toggle awal**
+
+    ```env
+    NEXT_PUBLIC_ENABLE_AUTH=true
+    NEXT_PUBLIC_ENABLE_WAITLIST=false
+    NEXT_PUBLIC_ENABLE_CONTACT=false
+    NEXT_PUBLIC_ENABLE_PAYMENTS=true
+    NEXT_PUBLIC_ENABLE_ADMIN=true
+    NEXT_PUBLIC_ENABLE_AI=true
+    ```
+
+    **Env minimum**
+
+    ```env
+    NEXT_PUBLIC_SUPABASE_URL=
+    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+    SUPABASE_SERVICE_ROLE_KEY=
+    NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+    PAYMENT_PROVIDER=midtrans
+    MIDTRANS_SERVER_KEY=
+    NEXT_PUBLIC_MIDTRANS_CLIENT_KEY=
+
+    AI_DEFAULT_PROVIDER=openai
+    OPENAI_API_KEY=
+
+    ADMIN_EMAILS=you@example.com
+    ```
+
+    **Alternatif provider AI**
+
+    ```env
+    AI_DEFAULT_PROVIDER=anthropic
+    ANTHROPIC_API_KEY=
+    ```
+
+    **Jangan lupa**
+
+    - Sesuaikan pricing dan quota plan dengan real cost AI kamu, bukan hanya dengan copy marketing.
+    - Rapikan flow error untuk rate limit, provider error, dan plan limit sebelum launch.
+    - Kalau AI adalah fitur premium, pastikan CTA trial, billing, dan guardrail output sudah sinkron.
+
+    **Buka juga:** [AI dan tooling](/kilatkoding/ai-and-tooling), [Flow end-to-end](/kilatkoding/end-to-end-flows), dan [Operational runbook](/kilatkoding/operational-runbook).
+  </Accordion>
+  <Accordion title="White-label base untuk agency atau freelancer">
+    **Cocok untuk:** project client yang butuh landing page, auth, dashboard dasar, dan ruang rebrand cepat.
+
+    **Toggle awal**
+
+    ```env
+    NEXT_PUBLIC_ENABLE_AUTH=true
+    NEXT_PUBLIC_ENABLE_WAITLIST=false
+    NEXT_PUBLIC_ENABLE_CONTACT=true
+    NEXT_PUBLIC_ENABLE_PAYMENTS=false
+    NEXT_PUBLIC_ENABLE_ADMIN=false
+    NEXT_PUBLIC_ENABLE_AI=false
+    ```
+
+    **Env minimum**
+
+    ```env
+    NEXT_PUBLIC_SUPABASE_URL=
+    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+    NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+    RESEND_API_KEY=
+    EMAIL_FROM=
+    ```
+
+    **Aktifkan tambahan ini kalau klien butuh billing**
+
+    ```env
+    NEXT_PUBLIC_ENABLE_PAYMENTS=true
+    NEXT_PUBLIC_ENABLE_ADMIN=true
+    SUPABASE_SERVICE_ROLE_KEY=
+    PAYMENT_PROVIDER=doku
+    DOKU_CLIENT_ID=
+    DOKU_SECRET_KEY=
+    ```
+
+    **Jangan lupa**
+
+    - Rebrand tidak berhenti di logo. Ubah juga navigation, legal pages, pricing, email sender, dan CTA.
+    - Matikan modul yang tidak masuk scope client agar handover lebih rapi.
+    - Simpan preset ini sebagai base awal, lalu pecah lagi per kebutuhan tiap klien.
+
+    **Buka juga:** [Resep rebranding](/kilatkoding/rebranding-recipes), [Matrix feature toggle](/kilatkoding/feature-toggle-matrix), dan [Testing dan deployment](/kilatkoding/testing-and-deployment).
+  </Accordion>
+</AccordionGroup>
+
+## Kesalahan umum saat memakai preset
+
+- Menyalakan `NEXT_PUBLIC_ENABLE_PAYMENTS=true` tanpa mengisi `PAYMENT_PROVIDER` dan credential provider.
+- Menyalakan `NEXT_PUBLIC_ENABLE_AI=true` tanpa memilih `AI_DEFAULT_PROVIDER` dan API key yang benar.
+- Membiarkan navigasi, CTA, atau copy marketing tetap menyinggung fitur yang sebenarnya sudah dimatikan.
+- Menganggap preset ini sebagai arsitektur final, padahal ini hanya starting point untuk setup awal.
+
+<Tip>
+Kalau kamu masih ragu antara dua preset, baca dulu [Perbandingan KilatKoding](/kilatkoding/comparison). Setelah itu cek [Matrix feature toggle](/kilatkoding/feature-toggle-matrix) untuk melihat dampak tiap kombinasi env ke UI, route, dan fallback behavior.
+</Tip>

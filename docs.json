@@ -35,6 +35,8 @@
                   "kilatkoding/index",
                   "kilatkoding/product-overview",
                   "kilatkoding/use-cases",
+                  "kilatkoding/comparison",
+                  "kilatkoding/faq",
                   "kilatkoding/no-code-vs-developer",
                   "kilatkoding/getting-started",
                   "kilatkoding/launch-checklists",
@@ -44,6 +46,7 @@
               {
                 "group": "Setup dan integrasi",
                 "pages": [
+                  "kilatkoding/preset-recipes",
                   "kilatkoding/services-setup",
                   "kilatkoding/environment-variables",
                   "kilatkoding/vercel-deployment"
@@ -105,6 +108,8 @@
                   "en/kilatkoding/index",
                   "en/kilatkoding/product-overview",
                   "en/kilatkoding/use-cases",
+                  "en/kilatkoding/comparison",
+                  "en/kilatkoding/faq",
                   "en/kilatkoding/no-code-vs-developer",
                   "en/kilatkoding/getting-started",
                   "en/kilatkoding/launch-checklists",
@@ -114,6 +119,7 @@
               {
                 "group": "Setup and integrations",
                 "pages": [
+                  "en/kilatkoding/preset-recipes",
                   "en/kilatkoding/services-setup",
                   "en/kilatkoding/environment-variables",
                   "en/kilatkoding/vercel-deployment"

@@ -1,0 +1,249 @@
+---
+title: "Preset recipes by use case"
+description: "Use practical presets for feature toggles, minimum env vars, and setup order based on your product scenario."
+mode: "wide"
+---
+
+<Warning>
+The presets on this page are starting points. After copying the initial toggles, you still need to clean up CTA copy, navigation, pricing, and page content so they match the features that actually stay enabled.
+</Warning>
+
+## How to use this page
+
+1. Pick the scenario closest to your product.
+2. Copy the starting toggles into `.env.local`.
+3. Fill the minimum env vars for the services you need.
+4. Connect the relevant providers through [Services setup](/en/kilatkoding/services-setup).
+5. Run `npm run env:check`, then continue to [Launch checklists](/en/kilatkoding/launch-checklists).
+
+## Pick the closest preset
+
+| Preset | Main focus | Most important toggles | Minimum services |
+| --- | --- | --- | --- |
+| Waitlist first | Validate demand and audience | Auth `off`, Waitlist `on`, Payments `off` | Supabase, optionally Resend |
+| Subscription SaaS | Billing and user dashboard | Auth `on`, Payments `on`, Admin `on` | Supabase + Midtrans or Doku |
+| Member or client portal | Gated area without public billing | Auth `on`, Payments `off` | Supabase |
+| Paid AI SaaS | AI product with plan-based access | Auth `on`, AI `on`, Payments `on` | Supabase + AI provider + payment provider |
+| White-label agency base | Fast rebranding for client work | Auth `on`, Contact `on`, Payments optional | Supabase, optionally Resend |
+
+## Presets you can use right away
+
+<AccordionGroup>
+  <Accordion title="Waitlist first, full app later">
+    **Good for:** idea validation, pre-launch landing pages, or waitlist campaigns.
+
+    **Starting toggles**
+
+    ```env
+    NEXT_PUBLIC_ENABLE_AUTH=false
+    NEXT_PUBLIC_ENABLE_WAITLIST=true
+    NEXT_PUBLIC_ENABLE_CONTACT=true
+    NEXT_PUBLIC_ENABLE_PAYMENTS=false
+    NEXT_PUBLIC_ENABLE_ADMIN=false
+    NEXT_PUBLIC_ENABLE_AI=false
+    ```
+
+    **Minimum env**
+
+    ```env
+    NEXT_PUBLIC_SUPABASE_URL=
+    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+    NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+    RESEND_API_KEY=
+    EMAIL_FROM=
+    ```
+
+    **Do not forget**
+
+    - Remove CTA paths that point to login, dashboard, paid pricing, or AI features.
+    - If you do not need the contact form yet, you can set `NEXT_PUBLIC_ENABLE_CONTACT=false` and remove `RESEND_API_KEY`.
+    - The main customization work usually happens in the landing page, hero copy, waitlist CTA, and FAQ content.
+
+    **Open next:** [KilatKoding use cases](/en/kilatkoding/use-cases), [Customization](/en/kilatkoding/customization), and [Launch checklists](/en/kilatkoding/launch-checklists).
+  </Accordion>
+  <Accordion title="Subscription SaaS without AI">
+    **Good for:** most classic SaaS products with user accounts, dashboards, and billing.
+
+    **Starting toggles**
+
+    ```env
+    NEXT_PUBLIC_ENABLE_AUTH=true
+    NEXT_PUBLIC_ENABLE_WAITLIST=false
+    NEXT_PUBLIC_ENABLE_CONTACT=true
+    NEXT_PUBLIC_ENABLE_PAYMENTS=true
+    NEXT_PUBLIC_ENABLE_ADMIN=true
+    NEXT_PUBLIC_ENABLE_AI=false
+    ```
+
+    **Minimum env**
+
+    ```env
+    NEXT_PUBLIC_SUPABASE_URL=
+    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+    SUPABASE_SERVICE_ROLE_KEY=
+    NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+    PAYMENT_PROVIDER=doku
+    DOKU_CLIENT_ID=
+    DOKU_SECRET_KEY=
+
+    # Or switch to Midtrans
+    # PAYMENT_PROVIDER=midtrans
+    # MIDTRANS_SERVER_KEY=
+    # NEXT_PUBLIC_MIDTRANS_CLIENT_KEY=
+
+    RESEND_API_KEY=
+    EMAIL_FROM=
+    ADMIN_EMAILS=you@example.com
+    ```
+
+    **Do not forget**
+
+    - Start with one payment provider. You do not need Midtrans and Doku at the same time.
+    - `SUPABASE_SERVICE_ROLE_KEY` matters for server-only writes such as billing, webhooks, audit logs, and signed avatar URLs.
+    - If the contact form is not part of the product, you can turn `NEXT_PUBLIC_ENABLE_CONTACT` off.
+
+    **Open next:** [Services setup](/en/kilatkoding/services-setup), [Environment variables](/en/kilatkoding/environment-variables), and [Testing recipes](/en/kilatkoding/testing-recipes).
+  </Accordion>
+  <Accordion title="Member or client portal without public billing">
+    **Good for:** member areas, student dashboards, agency client portals, or internal workspaces.
+
+    **Starting toggles**
+
+    ```env
+    NEXT_PUBLIC_ENABLE_AUTH=true
+    NEXT_PUBLIC_ENABLE_WAITLIST=false
+    NEXT_PUBLIC_ENABLE_CONTACT=false
+    NEXT_PUBLIC_ENABLE_PAYMENTS=false
+    NEXT_PUBLIC_ENABLE_ADMIN=false
+    NEXT_PUBLIC_ENABLE_AI=false
+    ```
+
+    **Minimum env**
+
+    ```env
+    NEXT_PUBLIC_SUPABASE_URL=
+    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+    NEXT_PUBLIC_APP_URL=http://localhost:3000
+    ```
+
+    **Optional when needed**
+
+    ```env
+    SUPABASE_SERVICE_ROLE_KEY=
+    NEXT_PUBLIC_ENABLE_ADMIN=true
+    ADMIN_EMAILS=ops@example.com
+    ```
+
+    **Do not forget**
+
+    - The main customization work usually happens in dashboard navigation, permissions, and your product-specific data model.
+    - If you need signed avatar URLs, audit logs, or admin reporting, add `SUPABASE_SERVICE_ROLE_KEY`.
+    - Because payments stay off, remove upgrade CTA copy, checkout links, and subscription promises.
+
+    **Open next:** [Components and UI](/en/kilatkoding/components-and-ui), [Architecture](/en/kilatkoding/architecture), and [Database map](/en/kilatkoding/database-map).
+  </Accordion>
+  <Accordion title="AI SaaS with paid plans">
+    **Good for:** AI writing tools, internal copilots, content generators, or paid AI workflows.
+
+    **Starting toggles**
+
+    ```env
+    NEXT_PUBLIC_ENABLE_AUTH=true
+    NEXT_PUBLIC_ENABLE_WAITLIST=false
+    NEXT_PUBLIC_ENABLE_CONTACT=false
+    NEXT_PUBLIC_ENABLE_PAYMENTS=true
+    NEXT_PUBLIC_ENABLE_ADMIN=true
+    NEXT_PUBLIC_ENABLE_AI=true
+    ```
+
+    **Minimum env**
+
+    ```env
+    NEXT_PUBLIC_SUPABASE_URL=
+    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+    SUPABASE_SERVICE_ROLE_KEY=
+    NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+    PAYMENT_PROVIDER=midtrans
+    MIDTRANS_SERVER_KEY=
+    NEXT_PUBLIC_MIDTRANS_CLIENT_KEY=
+
+    AI_DEFAULT_PROVIDER=openai
+    OPENAI_API_KEY=
+
+    ADMIN_EMAILS=you@example.com
+    ```
+
+    **Alternative AI provider**
+
+    ```env
+    AI_DEFAULT_PROVIDER=anthropic
+    ANTHROPIC_API_KEY=
+    ```
+
+    **Do not forget**
+
+    - Align pricing and plan quotas with actual AI cost, not only with the marketing copy.
+    - Clean up error handling for rate limits, provider failures, and plan limits before launch.
+    - If AI is a premium feature, make sure trial CTA copy, billing, and output guardrails are aligned.
+
+    **Open next:** [AI and tooling](/en/kilatkoding/ai-and-tooling), [End-to-end flows](/en/kilatkoding/end-to-end-flows), and [Operational runbook](/en/kilatkoding/operational-runbook).
+  </Accordion>
+  <Accordion title="White-label base for agencies or freelancers">
+    **Good for:** client projects that need a landing page, auth, a basic dashboard, and fast rebranding.
+
+    **Starting toggles**
+
+    ```env
+    NEXT_PUBLIC_ENABLE_AUTH=true
+    NEXT_PUBLIC_ENABLE_WAITLIST=false
+    NEXT_PUBLIC_ENABLE_CONTACT=true
+    NEXT_PUBLIC_ENABLE_PAYMENTS=false
+    NEXT_PUBLIC_ENABLE_ADMIN=false
+    NEXT_PUBLIC_ENABLE_AI=false
+    ```
+
+    **Minimum env**
+
+    ```env
+    NEXT_PUBLIC_SUPABASE_URL=
+    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+    NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+    RESEND_API_KEY=
+    EMAIL_FROM=
+    ```
+
+    **Enable this if the client later needs billing**
+
+    ```env
+    NEXT_PUBLIC_ENABLE_PAYMENTS=true
+    NEXT_PUBLIC_ENABLE_ADMIN=true
+    SUPABASE_SERVICE_ROLE_KEY=
+    PAYMENT_PROVIDER=doku
+    DOKU_CLIENT_ID=
+    DOKU_SECRET_KEY=
+    ```
+
+    **Do not forget**
+
+    - Rebranding is more than a logo. Update navigation, legal pages, pricing, email sender, and CTA copy too.
+    - Turn off modules that are outside the client scope so handover stays cleaner.
+    - Treat this preset as a reusable base, then split it further for each client need.
+
+    **Open next:** [Rebranding recipes](/en/kilatkoding/rebranding-recipes), [Feature toggle matrix](/en/kilatkoding/feature-toggle-matrix), and [Testing and deployment](/en/kilatkoding/testing-and-deployment).
+  </Accordion>
+</AccordionGroup>
+
+## Common mistakes when using presets
+
+- Turning `NEXT_PUBLIC_ENABLE_PAYMENTS=true` on without `PAYMENT_PROVIDER` and valid provider credentials.
+- Turning `NEXT_PUBLIC_ENABLE_AI=true` on without `AI_DEFAULT_PROVIDER` and the correct API key.
+- Leaving navigation, CTA copy, or marketing promises in place for features that have actually been turned off.
+- Treating a preset as a final architecture instead of a safe starting point.
+
+<Tip>
+If you are still choosing between two presets, read [KilatKoding comparison](/en/kilatkoding/comparison) first. Then open [Feature toggle matrix](/en/kilatkoding/feature-toggle-matrix) to see how each env combination changes the UI, routes, and fallback behavior.
+</Tip>
