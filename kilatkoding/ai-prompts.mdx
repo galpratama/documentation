@@ -1,0 +1,380 @@
+---
+title: "Prompt AI siap pakai"
+description: "Kumpulan prompt siap copy untuk non-tech user, developer, dan agency yang memakai KilatKoding."
+mode: "wide"
+---
+
+<Warning>
+Jangan pernah menempelkan secret seperti `SUPABASE_SERVICE_ROLE_KEY`, `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `MIDTRANS_SERVER_KEY`, `DOKU_SECRET_KEY`, atau credential production lain ke AI.
+</Warning>
+
+<Info>
+Ganti semua bagian dalam tanda kurung siku seperti `[jelaskan produk kamu]` sebelum mengirim prompt. Kalau AI yang kamu pakai punya akses ke repo, biarkan prompt meminta AI memeriksa file yang relevan dulu. Kalau AI tidak punya akses repo, minta dia menulis asumsi dengan jelas.
+</Info>
+
+## Cara memakai prompt di halaman ini
+
+1. Pilih prompt yang paling dekat dengan tugas kamu.
+2. Tambahkan konteks nyata tentang produk, fitur aktif, dan target launch.
+3. Minta output yang rapi: langkah, file yang relevan, env yang dibutuhkan, risiko, dan cara verifikasi.
+4. Cek hasil AI ke dokumentasi ini lagi sebelum kamu mengeksekusi perubahan besar.
+
+## Blok instruksi dasar
+
+Kalau kamu mau hasil AI lebih konsisten, tempel blok ini di awal prompt mana pun:
+
+```text
+Sebelum menjawab, cek dulu dokumentasi dan file yang paling relevan. Jangan mengarang fitur yang tidak ada. Bedakan mana yang bisa dikerjakan tanpa coding dan mana yang butuh developer. Kalau kamu membuat asumsi, tulis asumsi itu dengan jelas. Kalau kamu menyarankan perubahan file, env, atau service, tampilkan item yang perlu diubah dan cara memverifikasinya.
+```
+
+## Prompt untuk non-tech user
+
+<AccordionGroup>
+  <Accordion title="Pilih use case dan kombinasi fitur yang paling cocok">
+    **Pakai saat:** kamu belum yakin produkmu paling cocok memakai skenario apa di KilatKoding.
+
+    **Output yang diharapkan:** use case terdekat, modul yang perlu aktif, layanan minimum, dan risiko mismatch.
+
+    ```text
+    Kamu sedang membantu saya memilih use case KilatKoding yang paling cocok untuk produk berikut:
+
+    [jelaskan produk, target user, dan cara produk ini menghasilkan uang]
+
+    Gunakan dokumentasi KilatKoding. Kalau kamu punya akses ke repo, cek juga file config, app, lib, supabase/migrations, dan .env.example sebelum menyimpulkan.
+
+    Tolong beri saya:
+    1. Use case KilatKoding yang paling dekat
+    2. Fitur yang sebaiknya aktif dan nonaktif
+    3. Layanan minimum yang perlu saya siapkan
+    4. Risiko atau mismatch yang perlu saya tahu sejak awal
+    5. Halaman dokumentasi yang harus saya baca berikutnya
+
+    Pisahkan juga mana keputusan yang bisa saya ambil sebagai non-tech user dan mana yang lebih aman ditangani developer.
+    ```
+  </Accordion>
+  <Accordion title="Nilai apakah saya sebaiknya pakai KilatKoding atau mulai dari opsi lain">
+    **Pakai saat:** kamu masih ragu apakah boilerplate ini memang titik mulai yang tepat.
+
+    **Output yang diharapkan:** rekomendasi arah, alasan, trade-off, dan sinyal risiko.
+
+    ```text
+    Bantu saya menilai apakah saya lebih cocok memakai KilatKoding, template UI saja, build custom penuh, atau mulai dari nol.
+
+    Konteks produk saya:
+    [jelaskan produk, kompleksitas fitur, deadline, budget, dan apakah saya punya developer]
+
+    Tolong beri jawaban dalam format:
+    1. Rekomendasi utama
+    2. Kenapa opsi itu paling masuk akal
+    3. Trade-off terbesar yang harus saya terima
+    4. Kapan saya sebaiknya memilih opsi lain
+    5. Langkah berikutnya yang paling aman
+
+    Gunakan dokumentasi KilatKoding dan jangan mengarang kemampuan yang belum didukung.
+    ```
+  </Accordion>
+  <Accordion title="Ubah ide produk saya jadi brief yang jelas untuk developer">
+    **Pakai saat:** kamu sudah tahu produk yang mau dibuat, tapi belum tahu cara menjelaskannya ke developer atau AI coding assistant.
+
+    **Output yang diharapkan:** brief yang rapi, daftar fitur aktif, integrasi, dan area custom.
+
+    ```text
+    Ubah ide produk berikut menjadi brief implementasi yang jelas untuk developer yang akan memakai KilatKoding:
+
+    [jelaskan ide produk, target user, model bisnis, fitur wajib, dan deadline]
+
+    Tolong susun hasilnya dalam format:
+    1. Ringkasan produk
+    2. Use case KilatKoding yang paling dekat
+    3. Fitur bawaan KilatKoding yang bisa dipakai langsung
+    4. Area yang tetap perlu custom
+    5. Integrasi dan service yang perlu disiapkan
+    6. Pertanyaan terbuka yang perlu diputuskan sebelum setup
+    7. Halaman docs yang harus dibaca developer setelah ini
+    ```
+  </Accordion>
+  <Accordion title="Buat checklist launch yang sesuai dengan produk saya">
+    **Pakai saat:** kamu ingin AI mengubah dokumentasi launch menjadi checklist yang lebih spesifik ke produkmu.
+
+    **Output yang diharapkan:** checklist launch yang bisa dipakai tim non-tech dan developer bersama-sama.
+
+    ```text
+    Buatkan checklist launch untuk produk saya yang dibangun di atas KilatKoding.
+
+    Konteks:
+    - Use case: [misalnya waitlist, subscription SaaS, portal member, AI SaaS]
+    - Fitur aktif: [auth on/off, payments on/off, admin on/off, AI on/off, waitlist on/off, contact on/off]
+    - Payment provider: [midtrans / doku / tidak pakai]
+    - AI provider: [openai / anthropic / tidak pakai]
+    - Siapa yang akan menjalankan launch: [founder, operator, developer, agency]
+
+    Tolong beri saya:
+    1. Checklist universal
+    2. Checklist teknis
+    3. Checklist konten dan brand
+    4. Checklist operasional 24 jam pertama
+    5. Area yang paling berisiko saat launch
+
+    Jangan minta semua fitur aktif kalau memang tidak dibutuhkan.
+    ```
+  </Accordion>
+  <Accordion title="Pisahkan mana yang bisa saya kerjakan sendiri dan mana yang butuh developer">
+    **Pakai saat:** kamu ingin cepat tahu batas aman pekerjaan non-teknis.
+
+    **Output yang diharapkan:** pemisahan tugas non-tech vs developer dengan alasan singkat.
+
+    ```text
+    Bantu saya memisahkan mana hal yang bisa saya kerjakan sendiri di KilatKoding dan mana yang sebaiknya dikerjakan developer.
+
+    Konteks saya:
+    [jelaskan apakah kamu founder, operator, marketer, atau PM, dan apa yang ingin kamu ubah]
+
+    Tolong bagi hasilnya menjadi:
+    1. Aman dikerjakan tanpa coding
+    2. Bisa dikerjakan dengan bantuan AI tetapi tetap perlu review developer
+    3. Sebaiknya langsung dikerjakan developer
+    4. Risiko kalau saya memaksa mengerjakan area teknis tanpa bantuan
+    5. Halaman dokumentasi yang harus saya baca setelah ini
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Prompt untuk developer
+
+<AccordionGroup>
+  <Accordion title="Buat preset env dan setup plan dari use case saya">
+    **Pakai saat:** kamu mau titik mulai `.env.local` dan service setup yang lebih preskriptif.
+
+    **Output yang diharapkan:** daftar env, toggle, layanan, dan urutan setup.
+
+    ```text
+    Saya ingin memakai KilatKoding untuk use case berikut:
+
+    [jelaskan use case, fitur aktif, payment provider, AI provider, dan apakah admin dipakai]
+
+    Tolong bantu saya membuat:
+    1. Draft `.env.local` awal
+    2. Daftar feature toggle yang harus aktif dan nonaktif
+    3. Daftar layanan yang wajib disiapkan
+    4. Urutan setup paling aman
+    5. Cara verifikasi bahwa setup ini sudah benar
+
+    Kalau kamu punya akses repo, cek dokumentasi dan file konfigurasi yang relevan dulu sebelum menulis jawabannya.
+    ```
+  </Accordion>
+  <Accordion title="Buat rencana setup lokal untuk tim saya">
+    **Pakai saat:** kamu ingin AI merangkum setup lokal untuk tim lintas OS.
+
+    **Output yang diharapkan:** langkah setup, dependency, dan checkpoint verifikasi.
+
+    ```text
+    Buatkan rencana setup lokal KilatKoding untuk tim saya.
+
+    Konteks tim:
+    - OS yang dipakai: [Windows / macOS / Linux / campuran]
+    - Siapa yang setup: [developer internal, freelancer, agency]
+    - Fitur aktif: [jelaskan modul yang dipakai]
+
+    Tolong beri saya:
+    1. Dependency yang harus dipasang lebih dulu
+    2. Urutan setup lokal yang aman
+    3. Perbedaan penting antar OS
+    4. Checkpoint verifikasi setelah setup
+    5. Error awal yang paling mungkin muncul dan cara antisipasinya
+    ```
+  </Accordion>
+  <Accordion title="Matikan modul dengan aman tanpa merusak flow lain">
+    **Pakai saat:** kamu mau menonaktifkan auth, payments, admin, contact, waitlist, atau AI.
+
+    **Output yang diharapkan:** toggle yang diubah, file yang harus dicek, dan cleanup UI/copy.
+
+    ```text
+    Saya ingin mematikan modul berikut di KilatKoding:
+
+    [sebutkan modulnya, misalnya payments, AI, waitlist, contact, admin, atau auth]
+
+    Tolong bantu saya:
+    1. Menentukan env toggle yang harus diubah
+    2. Menentukan halaman, CTA, dan copy yang harus ikut dirapikan
+    3. Menentukan route, API, atau area dashboard yang harus saya cek sesudah modul dimatikan
+    4. Menjelaskan risiko fallback behavior yang perlu saya pahami
+    5. Memberi checklist verifikasi akhir
+
+    Kalau kamu punya akses repo, cek file config, navigation, pricing, dan komponen marketing yang relevan.
+    ```
+  </Accordion>
+  <Accordion title="Rencanakan implementasi fitur baru di atas boilerplate">
+    **Pakai saat:** kamu ingin menambah fitur domain produk tanpa merusak fondasi yang sudah ada.
+
+    **Output yang diharapkan:** rencana implementasi, file yang perlu disentuh, dan risiko integrasi.
+
+    ```text
+    Saya ingin menambahkan fitur baru ke KilatKoding:
+
+    [jelaskan fitur, siapa user-nya, data apa yang dibutuhkan, dan apakah fitur ini memengaruhi auth, billing, admin, atau AI]
+
+    Tolong bantu saya membuat:
+    1. Rencana implementasi bertahap
+    2. Area codebase yang paling mungkin perlu diubah
+    3. Perubahan schema database yang mungkin dibutuhkan
+    4. Dampak ke route, dashboard, dan permission
+    5. Risiko teknis atau regresi yang perlu dijaga
+    6. Cara menguji fitur ini sebelum deploy
+
+    Jangan mengarang struktur yang tidak ada. Kalau akses repo tersedia, cek pola yang sudah dipakai dulu.
+    ```
+  </Accordion>
+  <Accordion title="Debug masalah setup, payment, webhook, auth, atau AI">
+    **Pakai saat:** ada masalah yang butuh diagnosis terarah.
+
+    **Output yang diharapkan:** hipotesis akar masalah, langkah cek, dan perbaikan berurutan.
+
+    ```text
+    Bantu saya mendiagnosis masalah di KilatKoding berikut:
+
+    Gejala:
+    [jelaskan error, behavior yang salah, endpoint yang gagal, atau screenshot/log penting]
+
+    Konteks:
+    - Fitur aktif: [jelaskan toggle aktif]
+    - Environment: [local / staging / production]
+    - Payment provider: [midtrans / doku / tidak pakai]
+    - AI provider: [openai / anthropic / tidak pakai]
+    - Hal yang baru saya ubah: [jelaskan perubahan terakhir]
+
+    Tolong beri saya:
+    1. 3 sampai 5 hipotesis penyebab paling mungkin
+    2. Urutan pengecekan tercepat
+    3. File, env, tabel, atau route yang harus saya cek
+    4. Cara membedakan root cause utama dari gejala samping
+    5. Langkah perbaikan yang paling aman
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Prompt untuk agency atau freelancer
+
+<AccordionGroup>
+  <Accordion title="Nilai apakah brief klien cocok memakai KilatKoding">
+    **Pakai saat:** kamu menerima brief klien dan ingin cepat tahu apakah KilatKoding cocok atau tidak.
+
+    **Output yang diharapkan:** fit analysis, area custom, dan sinyal scope creep.
+
+    ```text
+    Bantu saya menilai apakah brief klien berikut cocok dibangun dengan KilatKoding:
+
+    [tempel brief klien, fitur utama, deadline, budget, dan deliverable]
+
+    Tolong beri saya:
+    1. Apakah KilatKoding cocok, cukup cocok, atau kurang cocok
+    2. Area built-in yang bisa dipakai langsung
+    3. Area yang pasti butuh custom
+    4. Red flag scope yang perlu saya komunikasikan sejak awal
+    5. Rekomendasi cara framing penawaran ke klien
+    ```
+  </Accordion>
+  <Accordion title="Buat rencana white-label delivery yang rapi">
+    **Pakai saat:** kamu ingin menurunkan KilatKoding jadi project client tanpa meninggalkan jejak yang membingungkan.
+
+    **Output yang diharapkan:** plan rebrand, modul aktif, dan daftar cleanup.
+
+    ```text
+    Saya ingin menjadikan KilatKoding sebagai white-label base untuk klien berikut:
+
+    [jelaskan tipe klien, industri, model bisnis, dan fitur yang diminta]
+
+    Tolong buatkan:
+    1. Rencana rebrand bertahap
+    2. Modul yang sebaiknya tetap aktif atau dimatikan
+    3. File dan area docs/code yang perlu diprioritaskan
+    4. Daftar konten placeholder yang wajib dibersihkan
+    5. Checklist sebelum handoff ke klien
+    ```
+  </Accordion>
+  <Accordion title="Pisahkan built-in vs custom scope untuk proposal">
+    **Pakai saat:** kamu mau menjelaskan ke klien mana yang sudah ada dan mana yang perlu kerja tambahan.
+
+    **Output yang diharapkan:** pembagian scope yang bisa langsung dipakai untuk proposal atau SOW.
+
+    ```text
+    Bantu saya memisahkan scope built-in KilatKoding dan scope custom untuk kebutuhan klien berikut:
+
+    [jelaskan fitur yang diminta klien]
+
+    Tolong bagi hasilnya menjadi:
+    1. Sudah ada di KilatKoding
+    2. Ada fondasinya tetapi tetap perlu custom
+    3. Belum ada dan harus dibangun dari nol
+    4. Risiko perubahan scope yang perlu saya jelaskan ke klien
+    5. Asumsi yang harus ditulis jelas di proposal
+    ```
+  </Accordion>
+  <Accordion title="Buat handoff note dan panduan operasional untuk klien">
+    **Pakai saat:** project hampir selesai dan kamu ingin klien bisa menerima serah terima dengan rapi.
+
+    **Output yang diharapkan:** handoff note, akses yang perlu diberi, dan hal yang perlu dipantau klien.
+
+    ```text
+    Buatkan handoff note untuk klien yang menerima project berbasis KilatKoding.
+
+    Konteks:
+    - Fitur aktif: [jelaskan]
+    - Integrasi aktif: [supabase, resend, midtrans, doku, openai, anthropic, dll]
+    - Hal yang sengaja dimatikan: [jelaskan]
+    - Siapa penerima handoff: [founder, operator, developer klien]
+
+    Tolong beri saya:
+    1. Ringkasan fitur aktif
+    2. Layanan yang dimiliki klien dan untuk apa dipakai
+    3. Hal yang bisa mereka kelola sendiri
+    4. Hal yang tetap perlu developer
+    5. Checklist operasional setelah handoff
+    ```
+  </Accordion>
+  <Accordion title="Audit readiness sebelum saya kirim ke klien atau publish live">
+    **Pakai saat:** kamu ingin final sanity check sebelum delivery atau launch.
+
+    **Output yang diharapkan:** daftar cek akhir, blind spot, dan risiko yang tersisa.
+
+    ```text
+    Audit kesiapan delivery project KilatKoding saya sebelum saya kirim ke klien atau publish live.
+
+    Konteks project:
+    [jelaskan use case, fitur aktif, domain, provider, dan perubahan besar yang sudah dilakukan]
+
+    Tolong beri saya:
+    1. Checklist final teknis
+    2. Checklist final konten dan brand
+    3. Checklist final operasional
+    4. Blind spot yang sering tertinggal pada project white-label
+    5. Risiko residual yang masih harus saya komunikasikan ke klien
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Halaman docs yang paling cocok dipasangkan dengan prompt
+
+<Columns cols={2}>
+  <Card title="Use case" href="/kilatkoding/use-cases">
+    Pakai prompt pemilihan skenario kalau kamu belum yakin produkmu paling cocok ke jalur yang mana.
+  </Card>
+  <Card title="Perbandingan" href="/kilatkoding/comparison">
+    Pakai prompt evaluasi titik mulai kalau kamu masih ragu antara boilerplate, template UI, atau build custom.
+  </Card>
+  <Card title="Preset recipes" href="/kilatkoding/preset-recipes">
+    Pakai prompt env dan toggle kalau kamu mau titik mulai `.env.local` yang lebih preskriptif.
+  </Card>
+  <Card title="Kustomisasi" href="/kilatkoding/customization">
+    Pakai prompt rebrand dan file mapping kalau kamu mau mengubah KilatKoding tanpa menebak-nebak.
+  </Card>
+  <Card title="Checklist launch" href="/kilatkoding/launch-checklists">
+    Pakai prompt launch audit kalau kamu butuh checklist yang lebih spesifik ke produk live kamu.
+  </Card>
+  <Card title="Troubleshooting" href="/kilatkoding/troubleshooting">
+    Pakai prompt diagnosis kalau kamu sedang berhadapan dengan bug, fallback, atau setup yang belum siap.
+  </Card>
+</Columns>
+
+<Tip>
+Kalau kamu ingin hasil AI yang lebih bagus, sertakan konteks yang konkret: use case, fitur aktif, provider yang dipakai, perubahan terakhir, dan target output yang kamu butuhkan. Prompt yang lebih spesifik hampir selalu memberi hasil yang lebih berguna.
+</Tip>

@@ -1,0 +1,380 @@
+---
+title: "Ready-to-use AI prompts"
+description: "Copy-ready prompts for non-technical users, developers, and agencies working with KilatKoding."
+mode: "wide"
+---
+
+<Warning>
+Never paste secrets such as `SUPABASE_SERVICE_ROLE_KEY`, `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `MIDTRANS_SERVER_KEY`, `DOKU_SECRET_KEY`, or other production credentials into an AI tool.
+</Warning>
+
+<Info>
+Replace every placeholder in square brackets such as `[describe your product]` before sending the prompt. If the AI tool has access to your repository, let the prompt tell it to inspect the relevant files first. If it does not have repo access, ask it to state assumptions clearly.
+</Info>
+
+## How to use the prompts on this page
+
+1. Pick the prompt closest to your task.
+2. Add real context about the product, active features, and launch goal.
+3. Ask for structured output: steps, relevant files, needed env vars, risks, and verification.
+4. Cross-check the answer against this documentation before making large changes.
+
+## Base instruction block
+
+If you want more consistent AI output, prepend this block to almost any prompt:
+
+```text
+Before answering, inspect the most relevant documentation and files first. Do not invent features that do not exist. Separate what can be done without code from what needs a developer. If you make assumptions, state them clearly. If you suggest file, env, or service changes, list what needs to change and how to verify it.
+```
+
+## Prompts for non-technical users
+
+<AccordionGroup>
+  <Accordion title="Choose the right use case and feature mix">
+    **Use this when:** you are not yet sure which KilatKoding scenario matches your product.
+
+    **Expected output:** best-fit use case, active modules, minimum services, and mismatch risks.
+
+    ```text
+    You are helping me choose the best KilatKoding use case for this product:
+
+    [describe the product, target users, and how it makes money]
+
+    Use the KilatKoding documentation. If you have repo access, also inspect config files, app files, lib, supabase/migrations, and .env.example before concluding.
+
+    Please give me:
+    1. The closest KilatKoding use case
+    2. Which features should stay on and off
+    3. The minimum services I need to prepare
+    4. Risks or mismatches I should know early
+    5. Which docs pages I should read next
+
+    Also separate what I can decide as a non-technical user and what is safer for a developer to handle.
+    ```
+  </Accordion>
+  <Accordion title="Decide whether I should use KilatKoding or start another way">
+    **Use this when:** you are still unsure whether this boilerplate is the right starting point.
+
+    **Expected output:** recommended path, reasons, trade-offs, and risk signals.
+
+    ```text
+    Help me decide whether I should use KilatKoding, a UI-only template, a fully custom build, or start from scratch.
+
+    Product context:
+    [describe the product, feature complexity, deadline, budget, and whether I have a developer]
+
+    Please answer in this format:
+    1. Main recommendation
+    2. Why that option makes the most sense
+    3. The biggest trade-off I need to accept
+    4. When I should choose a different option
+    5. The safest next step
+
+    Use the KilatKoding docs and do not invent capabilities that are not supported.
+    ```
+  </Accordion>
+  <Accordion title="Turn my product idea into a clear developer brief">
+    **Use this when:** you know what you want to build but do not know how to explain it clearly to a developer or coding assistant.
+
+    **Expected output:** a structured brief with active features, integrations, and custom work.
+
+    ```text
+    Turn this product idea into a clear implementation brief for a developer who will use KilatKoding:
+
+    [describe the product idea, target users, business model, must-have features, and deadline]
+
+    Please structure the result as:
+    1. Product summary
+    2. Closest KilatKoding use case
+    3. Built-in KilatKoding features that can be reused
+    4. Areas that still need custom work
+    5. Integrations and services that must be prepared
+    6. Open questions that should be decided before setup
+    7. Docs pages the developer should read next
+    ```
+  </Accordion>
+  <Accordion title="Generate a launch checklist for my product">
+    **Use this when:** you want AI to translate the launch docs into a checklist that fits your actual setup.
+
+    **Expected output:** a launch checklist that both non-technical and technical teammates can use.
+
+    ```text
+    Create a launch checklist for my product built on top of KilatKoding.
+
+    Context:
+    - Use case: [for example waitlist, subscription SaaS, member portal, AI SaaS]
+    - Active features: [auth on/off, payments on/off, admin on/off, AI on/off, waitlist on/off, contact on/off]
+    - Payment provider: [midtrans / doku / not used]
+    - AI provider: [openai / anthropic / not used]
+    - Who will run the launch: [founder, operator, developer, agency]
+
+    Please give me:
+    1. Universal checklist
+    2. Technical checklist
+    3. Brand and content checklist
+    4. First-24-hours operations checklist
+    5. The riskiest launch areas
+
+    Do not assume every feature must be active.
+    ```
+  </Accordion>
+  <Accordion title="Separate what I can do myself from what needs a developer">
+    **Use this when:** you want a safe boundary between non-technical work and technical implementation.
+
+    **Expected output:** a clear split between non-code tasks and developer tasks.
+
+    ```text
+    Help me separate which KilatKoding tasks I can safely do myself and which ones should go to a developer.
+
+    My context:
+    [describe whether you are a founder, operator, marketer, or PM, and what you want to change]
+
+    Please split the result into:
+    1. Safe to do without code
+    2. Possible with AI help but still needs developer review
+    3. Better handled directly by a developer
+    4. Risks if I try to force technical work without help
+    5. Docs pages I should read after this
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Prompts for developers
+
+<AccordionGroup>
+  <Accordion title="Generate an env preset and setup plan from my use case">
+    **Use this when:** you want a more prescriptive `.env.local` and service setup starting point.
+
+    **Expected output:** env vars, toggles, services, and setup order.
+
+    ```text
+    I want to use KilatKoding for this use case:
+
+    [describe the use case, active features, payment provider, AI provider, and whether admin is needed]
+
+    Please help me create:
+    1. A starting `.env.local` draft
+    2. Which feature toggles should be on and off
+    3. Which services are required
+    4. The safest setup order
+    5. How to verify this setup is correct
+
+    If you have repo access, inspect the relevant docs and config files before answering.
+    ```
+  </Accordion>
+  <Accordion title="Create a local setup plan for my team">
+    **Use this when:** you want AI to summarize local setup for a cross-platform team.
+
+    **Expected output:** setup steps, dependencies, and verification checkpoints.
+
+    ```text
+    Create a KilatKoding local setup plan for my team.
+
+    Team context:
+    - Operating systems: [Windows / macOS / Linux / mixed]
+    - Who is setting it up: [internal developers, freelancers, agency]
+    - Active features: [describe the modules in use]
+
+    Please give me:
+    1. Dependencies to install first
+    2. The safest local setup order
+    3. Important differences between operating systems
+    4. Verification checkpoints after setup
+    5. The most likely early setup errors and how to prevent them
+    ```
+  </Accordion>
+  <Accordion title="Disable a module safely without breaking surrounding flows">
+    **Use this when:** you want to turn off auth, payments, admin, contact, waitlist, or AI.
+
+    **Expected output:** toggle changes, files to inspect, and UI/copy cleanup tasks.
+
+    ```text
+    I want to disable this KilatKoding module:
+
+    [name the module, for example payments, AI, waitlist, contact, admin, or auth]
+
+    Please help me:
+    1. Identify which env toggles must change
+    2. Identify which pages, CTA paths, and copy need cleanup
+    3. Identify which routes, APIs, or dashboard areas I should test afterward
+    4. Explain which fallback behaviors I need to understand
+    5. Provide a final verification checklist
+
+    If you have repo access, inspect config, navigation, pricing, and relevant marketing components first.
+    ```
+  </Accordion>
+  <Accordion title="Plan a new feature on top of the boilerplate">
+    **Use this when:** you want to add a product-specific feature without breaking the existing foundation.
+
+    **Expected output:** phased implementation plan, affected files, and integration risks.
+
+    ```text
+    I want to add a new feature to KilatKoding:
+
+    [describe the feature, who uses it, what data it needs, and whether it affects auth, billing, admin, or AI]
+
+    Please help me create:
+    1. A phased implementation plan
+    2. The areas of the codebase most likely to change
+    3. Possible database schema changes
+    4. Impacts on routes, dashboard screens, and permissions
+    5. Technical or regression risks to watch
+    6. A testing plan before deployment
+
+    Do not invent structure that is not present. If repo access exists, inspect current patterns first.
+    ```
+  </Accordion>
+  <Accordion title="Debug setup, payment, webhook, auth, or AI issues">
+    **Use this when:** you need directed diagnosis instead of generic debugging advice.
+
+    **Expected output:** likely root causes, check order, and safe fixes.
+
+    ```text
+    Help me diagnose this KilatKoding issue:
+
+    Symptoms:
+    [describe the error, wrong behavior, failing endpoint, or useful logs]
+
+    Context:
+    - Active features: [describe the active toggles]
+    - Environment: [local / staging / production]
+    - Payment provider: [midtrans / doku / not used]
+    - AI provider: [openai / anthropic / not used]
+    - What I changed recently: [describe recent changes]
+
+    Please give me:
+    1. The 3 to 5 most likely root-cause hypotheses
+    2. The fastest inspection order
+    3. Which files, env vars, tables, or routes I should inspect
+    4. How to tell the main root cause apart from side symptoms
+    5. The safest fix path
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Prompts for agencies or freelancers
+
+<AccordionGroup>
+  <Accordion title="Evaluate whether a client brief fits KilatKoding">
+    **Use this when:** you receive a client brief and want a quick fit assessment.
+
+    **Expected output:** fit analysis, custom work areas, and scope-creep signals.
+
+    ```text
+    Help me evaluate whether this client brief is a good fit for KilatKoding:
+
+    [paste the client brief, core features, deadline, budget, and deliverables]
+
+    Please give me:
+    1. Whether KilatKoding is a strong fit, partial fit, or weak fit
+    2. Which built-in areas can be reused directly
+    3. Which areas definitely need custom work
+    4. Scope red flags I should communicate early
+    5. How I should frame the proposal to the client
+    ```
+  </Accordion>
+  <Accordion title="Create a clean white-label delivery plan">
+    **Use this when:** you want to turn KilatKoding into a client project without leaving confusing leftovers.
+
+    **Expected output:** rebranding plan, active modules, and cleanup list.
+
+    ```text
+    I want to use KilatKoding as a white-label base for this client:
+
+    [describe the client type, industry, business model, and requested features]
+
+    Please create:
+    1. A phased rebranding plan
+    2. Which modules should stay on or off
+    3. Which docs and code areas should be prioritized first
+    4. Which placeholder content must be cleaned up
+    5. A checklist before client handoff
+    ```
+  </Accordion>
+  <Accordion title="Split built-in scope vs custom scope for a proposal">
+    **Use this when:** you want to explain clearly what is already included and what needs additional implementation.
+
+    **Expected output:** a proposal-friendly scope split.
+
+    ```text
+    Help me split built-in KilatKoding scope and custom scope for this client need:
+
+    [describe the features the client wants]
+
+    Please divide the result into:
+    1. Already present in KilatKoding
+    2. Has a base in KilatKoding but still needs custom work
+    3. Not present and must be built from scratch
+    4. Scope-change risks I should explain to the client
+    5. Assumptions that should be written clearly in the proposal
+    ```
+  </Accordion>
+  <Accordion title="Create handoff notes and operational guidance for the client">
+    **Use this when:** the project is almost done and you want a cleaner client handoff.
+
+    **Expected output:** handoff notes, ownership boundaries, and post-handoff tasks.
+
+    ```text
+    Create handoff notes for a client receiving a KilatKoding-based project.
+
+    Context:
+    - Active features: [describe]
+    - Active integrations: [supabase, resend, midtrans, doku, openai, anthropic, etc.]
+    - Intentionally disabled areas: [describe]
+    - Handoff audience: [founder, operator, client developer]
+
+    Please give me:
+    1. A summary of active product features
+    2. Which services the client owns and what they are used for
+    3. What the client can manage themselves
+    4. What still needs a developer
+    5. A post-handoff operations checklist
+    ```
+  </Accordion>
+  <Accordion title="Audit delivery readiness before handing it over or going live">
+    **Use this when:** you want a final sanity check before client delivery or production launch.
+
+    **Expected output:** final checks, blind spots, and residual risks.
+
+    ```text
+    Audit the readiness of my KilatKoding project before I hand it off to a client or publish it live.
+
+    Project context:
+    [describe the use case, active features, domain, providers, and the major changes already made]
+
+    Please give me:
+    1. Final technical checklist
+    2. Final content and brand checklist
+    3. Final operations checklist
+    4. Blind spots that are common in white-label delivery
+    5. Residual risks I should still communicate to the client
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Docs pages that pair well with these prompts
+
+<Columns cols={2}>
+  <Card title="Use cases" href="/en/kilatkoding/use-cases">
+    Use the scenario-selection prompt if you are still deciding which path fits the product best.
+  </Card>
+  <Card title="Comparison" href="/en/kilatkoding/comparison">
+    Use the starting-point evaluation prompt if you are still deciding between a boilerplate, UI template, or custom build.
+  </Card>
+  <Card title="Preset recipes" href="/en/kilatkoding/preset-recipes">
+    Use the env and toggle prompt if you want a more prescriptive `.env.local` starting point.
+  </Card>
+  <Card title="Customization" href="/en/kilatkoding/customization">
+    Use the rebranding and file-mapping prompt if you want to change KilatKoding with less guesswork.
+  </Card>
+  <Card title="Launch checklists" href="/en/kilatkoding/launch-checklists">
+    Use the launch audit prompt if you need a checklist tailored to your live product setup.
+  </Card>
+  <Card title="Troubleshooting" href="/en/kilatkoding/troubleshooting">
+    Use the diagnosis prompt when you are dealing with bugs, fallback behavior, or incomplete setup.
+  </Card>
+</Columns>
+
+<Tip>
+If you want better AI output, include concrete context: use case, active features, providers in use, your latest changes, and the exact output you want. More specific prompts almost always produce more useful answers.
+</Tip>

@@ -63,6 +63,29 @@ Those two checks are usually enough to tell you whether the issue comes from env
   </Accordion>
 </AccordionGroup>
 
+## AI prompt you can use right away
+
+```text
+Help me diagnose this KilatKoding issue:
+
+Symptoms:
+[describe the error, failing endpoint, or incorrect behavior]
+
+Context:
+- Environment: [local / staging / production]
+- Active features: [describe the active toggles]
+- Payment provider: [midtrans / doku / not used]
+- AI provider: [openai / anthropic / not used]
+- Recent changes: [describe what you changed]
+
+Please give me:
+1. The 3 to 5 most likely root-cause hypotheses
+2. The fastest inspection order
+3. Which files, env vars, tables, or routes I should inspect
+4. How to separate the main root cause from side symptoms
+5. The safest fix path
+```
+
 ## Fast diagnosis checklist
 
 | Symptom | First thing to check |

@@ -63,6 +63,29 @@ Dua pemeriksaan ini biasanya sudah cukup untuk menunjukkan apakah masalah kamu b
   </Accordion>
 </AccordionGroup>
 
+## Prompt AI yang bisa langsung kamu pakai
+
+```text
+Bantu saya mendiagnosis masalah di KilatKoding berikut:
+
+Gejala:
+[jelaskan error, endpoint yang gagal, atau behavior yang salah]
+
+Konteks:
+- Environment: [local / staging / production]
+- Fitur aktif: [jelaskan toggle aktif]
+- Payment provider: [midtrans / doku / tidak pakai]
+- AI provider: [openai / anthropic / tidak pakai]
+- Perubahan terakhir yang saya lakukan: [jelaskan]
+
+Tolong beri saya:
+1. 3 sampai 5 hipotesis penyebab paling mungkin
+2. Urutan pengecekan tercepat
+3. File, env, tabel, atau route yang harus saya cek
+4. Cara membedakan root cause utama dari gejala samping
+5. Langkah perbaikan yang paling aman
+```
+
 ## Checklist diagnosis cepat
 
 | Gejala | Hal pertama yang dicek |
